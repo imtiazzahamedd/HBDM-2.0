@@ -663,7 +663,14 @@ button {
     position: relative;
     overflow: hidden;
     transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1);
-    background: var(--bg-secondary);
+    background: conic-gradient(#d97706 0deg 51.4deg,
+            #92400e 51.4deg 102.8deg,
+            #78350f 102.8deg 154.2deg,
+            #d97706 154.2deg 205.6deg,
+            #92400e 205.6deg 257deg,
+            #78350f 257deg 308.4deg,
+            #d97706 308.4deg 360deg);
+    box-shadow: 0 0 30px var(--lava-glow);
 }
 
 .wheel-pointer {
@@ -673,6 +680,21 @@ button {
     transform: translateX(-50%);
     z-index: 10;
     font-size: 2rem;
+}
+
+.wheel-label {
+    position: absolute;
+    width: 50%;
+    height: 40px;
+    top: calc(50% - 20px);
+    left: 50%;
+    transform-origin: left center;
+    transform: rotate(calc(var(--i) * (360deg / 7) + (360deg / 14))) translateX(60px);
+    color: var(--gold-primary);
+    font-weight: bold;
+    font-size: 0.75rem;
+    pointer-events: none;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 /* Cake Cutting */
@@ -732,8 +754,15 @@ button {
 }
 
 @keyframes flicker {
-    from { transform: scale(1); opacity: 0.8; }
-    to { transform: scale(1.1); opacity: 1; }
+    from {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    to {
+        transform: scale(1.1);
+        opacity: 1;
+    }
 }
 
 .cake.cut .cake-layer {
@@ -763,7 +792,18 @@ button {
 }
 
 @keyframes heartbeat {
-    0% { transform: scaleX(0); opacity: 0; }
-    50% { transform: scaleX(1.5); opacity: 1; }
-    100% { transform: scaleX(0); opacity: 0; }
+    0% {
+        transform: scaleX(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scaleX(1.5);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scaleX(0);
+        opacity: 0;
+    }
 }
