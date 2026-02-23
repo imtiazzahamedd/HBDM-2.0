@@ -566,6 +566,12 @@ function updateNextBirthdayCountdown() {
     const nextBirthday = getNextBirthday();
     const diff = nextBirthday - now;
 
+    // Calculate progress percentage
+    const yearStart = new Date(nextBirthday.getFullYear() - 1, birthdayMonth, birthdayDay);
+    const totalYear = nextBirthday - yearStart;
+    const elapsed = now - yearStart;
+    const progress = Math.min(100, Math.max(0, (elapsed / totalYear) * 100));
+
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -575,11 +581,16 @@ function updateNextBirthdayCountdown() {
     const hoursEl = document.getElementById('next-bday-hours');
     const minutesEl = document.getElementById('next-bday-minutes');
     const secondsEl = document.getElementById('next-bday-seconds');
+    const progressEl = document.getElementById('bday-progress-bar');
+    const progressTextEl = document.getElementById('bday-progress-percent');
 
     if (daysEl) daysEl.textContent = days;
     if (hoursEl) hoursEl.textContent = hours;
     if (minutesEl) minutesEl.textContent = minutes;
     if (secondsEl) secondsEl.textContent = seconds;
+
+    if (progressEl) progressEl.style.width = `${progress}%`;
+    if (progressTextEl) progressTextEl.textContent = `${progress.toFixed(1)}% Completed`;
 }
 
 // Initialize everything when DOM is ready
