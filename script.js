@@ -891,7 +891,8 @@ let totalWishesRevealed = 0;
 const balloonWishes = [
     "Always Smile 😊", "Stay Beautiful 👑", "Endless Joy ✨", "Pure Love ❤️",
     "Dream Big 🌟", "Forever Mine 💍", "Sweetest Soul 🍬", "My Everything 🌎",
-    "Radiant Queen 👸", "Heart of Gold 💛", "You're Magic 🪄", "Truly Special 💎"
+    "Radiant Queen 👸", "Heart of Gold 💛", "You're Magic 🪄", "Truly Special 💎",
+    "Stay Childish 🧸", "Sweetest Bacchami 🧸"
 ];
 
 const balloonColors = ['#dc2626', '#db2777', '#d97706', '#9333ea', '#4f46e5', '#ca8a04'];

@@ -2272,6 +2272,11 @@ button {
     }
 }
 
-.font-pacifico {
-    font-family: 'Pacifico', cursive;
+.animate-float-img {
+    animation: float-img 6s ease-in-out infinite;
+}
+
+@keyframes float-img {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-30px); }
 }
