@@ -2280,3 +2280,13 @@ button {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-30px); }
 }
+
+/* Specific enhancements for countdown glass cards */
+#section-anniversary .glass:hover, #section-countdown .glass:hover {
+    box-shadow: 0 0 30px rgba(251, 191, 36, 0.15), 0 0 60px rgba(251, 191, 36, 0.05);
+    background-color: rgba(15, 23, 42, 0.45);
+}
+
+#anni-progress-bar {
+    transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}

@@ -337,7 +337,19 @@ const heartMessages = [
     "My love for you is infinite! ♾️",
     "You're my everything! 💕",
     "I can't imagine life without you! 🌟",
-    "You're the best thing that ever happened to me! 🎁"
+    "You're the best thing that ever happened to me! 🎁",
+    "My soul chose you, and I'll keep choosing you forever! 💍",
+    "You are my favorite person to annoy and to love! 🥰",
+    "In your arms is my favorite place in the world! 🏡",
+    "You're the peace I found in a chaotic world! 🕊️",
+    "Your happiness is my priority, always! 💖",
+    "I love you more than words could ever describe! 📜",
+    "You are the queen of my heart, today and always! 👑",
+    "Thank you for being the highlight of my every day! ⭐",
+    "You deserve all the happiness in the world, my love! 🌎",
+    "I'm proud to be yours and to have you as mine! 👩‍❤️‍👨",
+    "Life is better with you by my side! 🌈",
+    "You are my sun, my moon, and all my stars! 🌌"
 ];
 
 let isSpinning = false;
@@ -386,6 +398,12 @@ function updateAnniversaryCountdown() {
     const nextAnniversary = getNextAnniversary();
     const diff = nextAnniversary - now;
 
+    // Calculate progress percentage
+    const yearStart = new Date(nextAnniversary.getFullYear() - 1, weddingDate.getMonth(), weddingDate.getDate());
+    const totalYear = nextAnniversary - yearStart;
+    const elapsed = now - yearStart;
+    const progress = Math.min(100, Math.max(0, (elapsed / totalYear) * 100));
+
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -395,11 +413,16 @@ function updateAnniversaryCountdown() {
     const hoursEl = document.getElementById('anni-hours');
     const minutesEl = document.getElementById('anni-minutes');
     const secondsEl = document.getElementById('anni-seconds');
+    const progressEl = document.getElementById('anni-progress-bar');
+    const progressTextEl = document.getElementById('anni-progress-percent');
 
     if (daysEl) daysEl.textContent = days;
     if (hoursEl) hoursEl.textContent = hours;
     if (minutesEl) minutesEl.textContent = minutes;
     if (secondsEl) secondsEl.textContent = seconds;
+    
+    if (progressEl) progressEl.style.width = `${progress}%`;
+    if (progressTextEl) progressTextEl.textContent = `${progress.toFixed(1)}% Completed`;
 }
 
 // Virtual Hug Function
