@@ -1388,7 +1388,7 @@
                         <div class="text-5xl mb-4 text-center text-amber-400">🏡</div>
                         <h3 class="text-xl font-bold text-amber-400 mb-3 text-center">Our Dream Home</h3>
                         <p class="text-amber-50/80 text-center">Building a beautiful home filled with love, laughter,
-                            and countless memories together.</p>
+                            and countless memories together and obviously chuttusa hehe..</p>
                     </div>
 
                     <!-- Dream 2 -->
@@ -1396,7 +1396,7 @@
                         <div class="text-5xl mb-4 text-center text-amber-400">✈️</div>
                         <h3 class="text-xl font-bold text-amber-400 mb-3 text-center">Travel the World</h3>
                         <p class="text-amber-50/80 text-center">Exploring new places, creating adventures, and making
-                            memories across the globe together.</p>
+                            memories across the globe together..in short ami ei pura duniya amr nijer duniya niye ghurte chai and ghurbou in sha allahh..</p>
                     </div>
 
                     <!-- Dream 3 -->
@@ -1404,7 +1404,7 @@
                         <div class="text-5xl mb-4 text-center text-amber-400">👨‍👩‍👧‍👦</div>
                         <h3 class="text-xl font-bold text-amber-400 mb-3 text-center">Growing Family</h3>
                         <p class="text-amber-50/80 text-center">Building our family and creating a loving environment
-                            for our future children.</p>
+                            for our future children..twins hehe..name thik koro babyyyyyy..</p>
                     </div>
 
                     <!-- Dream 4 -->
@@ -1412,7 +1412,7 @@
                         <div class="text-5xl mb-4 text-center text-amber-400">🌟</div>
                         <h3 class="text-xl font-bold text-amber-400 mb-3 text-center">Growing Together</h3>
                         <p class="text-amber-50/80 text-center">Supporting each other's dreams, growing stronger, and
-                            becoming the best versions of ourselves.</p>
+                            becoming the best versions of ourselves...ups and downs jai ashuk..eksathe tike thakbo in sha alllah</p>
                     </div>
 
                     <!-- Dream 5 -->
@@ -1420,7 +1420,7 @@
                         <div class="text-5xl mb-4 text-center text-amber-400">🎓</div>
                         <h3 class="text-xl font-bold text-amber-400 mb-3 text-center">Learning Together</h3>
                         <p class="text-amber-50/80 text-center">Continuing to learn, grow, and discover new passions and
-                            interests as a team.</p>
+                            interests as a team cause you are my best partner...!!!</p>
                     </div>
 
                     <!-- Dream 6 -->
@@ -1428,39 +1428,65 @@
                         <div class="text-5xl mb-4 text-center text-amber-400">♾️</div>
                         <h3 class="text-xl font-bold text-amber-400 mb-3 text-center">Forever Love</h3>
                         <p class="text-amber-50/80 text-center">Growing old together, hand in hand, with a love that
-                            only gets stronger with time.</p>
+                            only gets stronger with time...so much stronger okay bby..??</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 17: Virtual Hug Button -->
+        <!-- Section 17: Virtual Hug -->
         <section id="section-hug"
-            class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always">
-            <div class="max-w-2xl w-full text-center">
+            class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always overflow-hidden">
+            <!-- Background Glow -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-pink-500/10 rounded-full blur-[100px] pointer-events-none animate-pulse-gentle"></div>
+            
+            <div class="max-w-2xl w-full text-center relative z-10">
                 <h2 class="text-4xl md:text-5xl font-bold gold-gradient-text mb-8 font-dancing">
-                    Need a Hug? 🤗
+                    Feeling Low? Get a Hug! 🤗
                 </h2>
 
-                <div class="reveal reveal-zoom glass rounded-3xl p-12 shadow-2xl">
+                <div class="reveal reveal-zoom glass rounded-[3rem] p-10 md:p-14 shadow-2xl border border-white/10 relative overflow-hidden group">
+                    <!-- Corner Ornaments -->
+                    <div class="absolute -top-6 -left-6 text-4xl opacity-20 group-hover:opacity-40 transition-opacity">💖</div>
+                    <div class="absolute -bottom-6 -right-6 text-4xl opacity-20 group-hover:opacity-40 transition-opacity">💝</div>
+
                     <div id="hug-emoji"
-                        class="text-9xl mb-8 cursor-pointer transform transition-all duration-500 hover:scale-110"
-                        onclick="sendVirtualHug()">
+                        class="text-9xl mb-8 cursor-pointer transform transition-all duration-500 hover:scale-125 hover:rotate-12 drop-shadow-[0_0_20px_rgba(251,191,36,0.3)] active:scale-90"
+                        onclick="sendVirtualHug(event)">
                         🤗
                     </div>
 
-                    <div id="hug-message" class="min-h-[80px] flex items-center justify-center mb-6">
-                        <p class="text-xl text-amber-200 italic">Click for a virtual hug! 💕</p>
+                    <div id="hug-message" class="min-h-[100px] flex items-center justify-center mb-8">
+                        <p class="text-2xl text-amber-200 italic font-dancing">Tap the emoji for a warm hug! 💕</p>
                     </div>
 
-                    <button onclick="sendVirtualHug()"
-                        class="bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold py-4 px-8 rounded-full shadow-lg transform hover:scale-110 transition-all duration-300">
-                        Send Me a Hug! 🫂
+                    <!-- Warmth Meter (Exciting Addition) -->
+                    <div class="mb-10 px-6">
+                        <div class="flex justify-between text-[10px] text-amber-200/50 mb-2 font-bold uppercase tracking-widest">
+                            <span>Loneliness Level</span>
+                            <span id="warmth-percent">0% Warmth</span>
+                            <span>Infinity Love</span>
+                        </div>
+                        <div class="h-4 w-full bg-slate-950/50 rounded-full p-1 border border-white/5 overflow-hidden shadow-inner">
+                            <div id="warmth-bar" class="h-full bg-gradient-to-r from-pink-600 via-rose-400 to-amber-300 rounded-full transition-all duration-700 ease-out" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <button onclick="sendVirtualHug(event)"
+                        class="bg-gradient-to-r from-rose-500 to-amber-500 text-slate-950 font-bold py-5 px-10 rounded-full shadow-lg transform hover:scale-110 active:scale-95 transition-all duration-300 shadow-rose-500/20 group-hover:shadow-rose-500/40 text-lg">
+                        GIVE ME A HUG! 🫂
                     </button>
 
-                    <div id="hug-counter" class="mt-6 text-amber-200">
-                        <p class="text-sm">Hugs sent today: <span id="hug-count"
-                                class="font-bold text-amber-400">0</span></p>
+                    <div id="hug-counter" class="mt-8 pt-6 border-t border-white/5">
+                        <p class="text-amber-200/70 text-sm">Hugs received today: <span id="hug-count"
+                                class="font-bold text-amber-400 text-xl ml-1">0</span></p>
+                    </div>
+
+                    <!-- Hidden Reward Note (Revealed at 100%) -->
+                    <div id="hug-reward-note" class="hidden mt-8 p-6 glass rounded-2xl border border-pink-500/30 bg-pink-500/5">
+                        <h4 class="text-2xl font-bold text-pink-400 font-dancing mb-3">A Secret for You... 🤫</h4>
+                        <p class="text-amber-100 italic">"You've filled the meter! But my love for you can never be measured by a bar. It's infinite, unconditional, and grows with every breath I take. You are my greatest achievement. ♾️💖"</p>
+                        <div class="mt-4 flex justify-center gap-2 text-2xl">💍🌸💍</div>
                     </div>
                 </div>
             </div>

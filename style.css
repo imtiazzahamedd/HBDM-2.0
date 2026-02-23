@@ -2287,6 +2287,16 @@ button {
     background-color: rgba(15, 23, 42, 0.45);
 }
 
-#anni-progress-bar {
+#anni-progress-bar, #warmth-bar {
     transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#section-hug .glass:hover {
+    box-shadow: 0 0 40px rgba(244, 63, 94, 0.2), 0 0 80px rgba(244, 63, 94, 0.1);
+    background-color: rgba(15, 23, 42, 0.5);
+}
+
+.floating-heart-particle {
+    filter: drop-shadow(0 0 8px rgba(244, 63, 94, 0.6));
+    will-change: transform, opacity;
 }

@@ -435,37 +435,110 @@ const hugMessages = [
     "🫂 Hugging you through the screen! 💕",
     "💝 You're getting all my love in this hug! ✨",
     "🤗 The biggest hug for the best person! 💖",
-    "🫂 Sending endless hugs your way! 💕"
+    "🫂 Sending endless hugs your way! 💕",
+    "🧸 A cozy bear hug from your partner! ❤️",
+    "🦋 A hug that makes your heart flutter! ✨"
 ];
 
-function sendVirtualHug() {
+function spawnFloatingHearts(x, y) {
+    const symbols = ['💖', '💝', '💕', '💗', '💓', '✨', '🫂'];
+    for (let i = 0; i < 12; i++) {
+        const span = document.createElement('span');
+        span.className = 'floating-heart-particle fixed pointer-events-none z-[100] text-2xl';
+        span.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        
+        // Random drift
+        const dx = (Math.random() - 0.5) * 300;
+        const dy = -200 - Math.random() * 200;
+        const duration = 1.5 + Math.random() * 1;
+        
+        span.style.left = x + 'px';
+        span.style.top = y + 'px';
+        span.style.transition = `transform ${duration}s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity ${duration}s ease-out`;
+        
+        document.body.appendChild(span);
+        
+        // Use requestAnimationFrame for smooth start
+        requestAnimationFrame(() => {
+            span.style.transform = `translate(${dx}px, ${dy}px) scale(${1.5 + Math.random()}) rotate(${(Math.random() - 0.5) * 180}deg)`;
+            span.style.opacity = '0';
+        });
+        
+        setTimeout(() => span.remove(), duration * 1000);
+    }
+}
+
+function sendVirtualHug(event) {
     const hugEmoji = document.getElementById('hug-emoji');
     const hugMessage = document.getElementById('hug-message');
     const hugCountEl = document.getElementById('hug-count');
+    const warmthBar = document.getElementById('warmth-bar');
+    const warmthText = document.getElementById('warmth-percent');
 
     // Increment counter
     hugCount++;
     if (hugCountEl) hugCountEl.textContent = hugCount;
 
+    // Warmth logic (gamification)
+    const warmth = Math.min(100, hugCount * 5); // 5% per hug
+    if (warmthBar) warmthBar.style.width = `${warmth}%`;
+    if (warmthText) warmthText.textContent = `${warmth}% Warmth`;
+
+    // Visual heart burst from click position
+    if (event) {
+        spawnFloatingHearts(event.clientX, event.clientY);
+    } else {
+        const rect = hugEmoji.getBoundingClientRect();
+        spawnFloatingHearts(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    }
+
     // Animate emoji
     hugEmoji.style.transform = 'scale(1.5) rotate(360deg)';
-
     setTimeout(() => {
         hugEmoji.style.transform = 'scale(1) rotate(0deg)';
     }, 500);
 
-    // Show random message
-    const randomMessage = hugMessages[Math.floor(Math.random() * hugMessages.length)];
-    hugMessage.innerHTML = `<p class="text-2xl font-bold text-amber-400 animate-fade-in">${randomMessage}</p>`;
-
-    // Add confetti effect
-    const confetti = document.getElementById('confetti');
-    if (confetti) {
-        confetti.classList.remove('hidden');
-        setTimeout(() => {
-            confetti.classList.add('hidden');
-        }, 3000);
+    // milestone Check: 100% Warmth
+    if (warmth >= 100) {
+        triggerGrandHugCelebration();
+        return; // Stop normal greeting if grand celebration triggers
     }
+
+    // Normal Show random message
+    const randomMessage = hugMessages[Math.floor(Math.random() * hugMessages.length)];
+    hugMessage.innerHTML = `<p class="text-3xl font-bold text-amber-400 font-dancing animate-pop-in">${randomMessage}</p>`;
+
+    // Special milestone effects (every 10 hugs)
+    if (hugCount % 10 === 0 && warmth < 100) {
+        createConfetti();
+        hugMessage.innerHTML = `<p class="text-4xl font-bold text-amber-400 font-dancing animate-pop-in">WOW! SUPER HUG BURST! 💖🌟💖</p>`;
+    }
+}
+
+function triggerGrandHugCelebration() {
+    const hugMessage = document.getElementById('hug-message');
+    const hugSection = document.getElementById('section-hug');
+    const rewardNote = document.getElementById('hug-reward-note');
+
+    // 1. Massive Confetti
+    for (let i = 0; i < 6; i++) {
+        setTimeout(createConfetti, i * 300);
+    }
+
+    // 2. Change UI
+    hugMessage.innerHTML = `<p class="text-5xl font-bold text-pink-400 font-dancing animate-bounce">♾️ INFINITY WARMTH REACHED! ♾️</p>`;
+    
+    if (rewardNote) {
+        rewardNote.classList.remove('hidden');
+        rewardNote.classList.add('animate-pop-in');
+    }
+
+    // 3. Visual "Love Wave"
+    hugSection.style.transition = 'background-color 1s ease';
+    hugSection.style.backgroundColor = 'rgba(244, 63, 94, 0.15)';
+    setTimeout(() => {
+        hugSection.style.backgroundColor = '';
+    }, 2000);
 }
 
 // Next Birthday Countdown
