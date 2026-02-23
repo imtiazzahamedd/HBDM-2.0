@@ -1579,6 +1579,8 @@
             </div>
         </section>
 
+
+
         <!-- Section 19 Part 1: Next Birthday Countdown -->
         <section id="section-countdown"
             class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always overflow-hidden">
@@ -1633,77 +1635,6 @@
                     <p class="text-lg text-amber-200 italic font-dancing">"Every day with you is a celebration, but your birthday is
                         extra special! 💝"</p>
                 </div>
-            </div>
-        </section>
-
-        <!-- Section 19 Part 2: Birthday Message & Surprise -->
-        <section id="section-birthday-message"
-            class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always mt-20">
-            <div class="max-w-2xl w-full text-center">
-                <div class="reveal reveal-zoom glass rounded-3xl p-8 md:p-12 shadow-2xl space-y-8">
-                    <div class="text-7xl mb-4 animate-bounce-gentle">🤴</div>
-                    <h2 class="text-4xl md:text-5xl font-bold gold-gradient-text font-dancing">Thank You for Being You ✨
-                    </h2>
-
-                    <div class="space-y-4">
-                        <p class="text-xl text-amber-50">Thank you for coming into my life and choosing me. You are the
-                            greatest blessing I have ever received.</p>
-                        <p class="text-2xl font-bold text-amber-400 font-dancing">I Love You Beyond Everything! ✨👑</p>
-                    </div>
-
-                    <div class="bg-amber-400/10 rounded-2xl p-6 mb-8">
-                        <p class="text-sm text-amber-200 mb-2">💡 <strong>Pro Tip:</strong></p>
-                        <p class="text-sm text-amber-200">Bookmark this page and visit it anytime you want to feel
-                            loved!</p>
-                    </div>
-
-                    <div class="flex justify-center gap-4 text-4xl">
-                        <span class="animate-float">✨</span>
-                        <span class="animate-float animation-delay-200">👑</span>
-                        <span class="animate-float animation-delay-400">🌟</span>
-                    </div>
-
-                    <!-- Interactive Button -->
-                    <div class="text-center">
-                        <button onclick="scrollToSurprise()"
-                            class="bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold py-4 px-8 rounded-full shadow-lg transform hover:scale-110 hover:shadow-2xl transition-all duration-300 animate-pulse-gentle">
-                            Click for a Surprise! 🎁
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 20: Final Surprise Message (Hidden by default) -->
-        <section id="surprise"
-            class="hidden relative z-10 min-h-screen flex-col items-center justify-center px-4 py-12 snap-start snap-always">
-            <div
-                class="max-w-md w-full glass rounded-3xl shadow-2xl p-8 text-center animate-pop-in relative overflow-hidden">
-                <!-- Royal gold overlay -->
-                <div class="absolute inset-0 bg-amber-400/5 animate-pulse-gentle"></div>
-
-                <div class="relative z-10">
-                    <div class="text-7xl mb-4 animate-spin-slow"></div>
-                    <h3 class="text-4xl font-bold mb-4 gold-gradient-text">
-                        <span class="font-dancing">I Love You, </span>
-                        <span class="font-dancing">Mitisa</span><span class="font-dancing">!</span>
-                    </h3>
-                    <p class="text-xl mb-6 text-amber-200">Forever and Always ♾️✨</p>
-                    <div class="flex justify-center gap-2 text-4xl animate-bounce-slow mb-6">
-                        <span class="text-amber-400">✨</span>
-                        <span class="text-amber-400 animation-delay-200"></span>
-                        <span class="text-amber-400 animation-delay-400">🌟</span>
-                        <span class="text-amber-400 animation-delay-600">✨</span>
-                    </div>
-                    <p class="text-lg italic text-amber-50/90">
-                        "You are my sunshine, my happiness, and my everything"
-                    </p>
-                </div>
-            </div>
-
-            <!-- Footer -->
-            <div class="mt-8 text-center text-amber-500/60">
-                <p class="text-sm">Made with ✨ for the most amazing woman in the world</p>
             </div>
         </section>
 
@@ -1900,31 +1831,47 @@
             </div>
         </section>
 
-        <!-- [NEW] Section B: Virtual Bouquet (existing, just keeping its place) -->
+        <!-- Section: Interactive Virtual Bouquet -->
         <section id="section-bouquet"
-            class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always">
-            <h2
-                class="reveal reveal-up text-4xl md:text-5xl font-bold gold-gradient-text mb-8 font-dancing text-center">
+            class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always overflow-hidden">
+            <!-- Background Glow -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+            <h2 class="reveal reveal-up text-4xl md:text-5xl font-bold gold-gradient-text mb-4 font-dancing text-center">
                 A Garden of My Love 🌹
             </h2>
-            <p class="text-amber-200 mb-12 text-center reveal reveal-up">Each flower represents a reason why I love
-                you...</p>
+            <p class="text-amber-200/70 mb-12 text-center reveal reveal-up italic font-dancing text-xl">Tap each flower to reveal a secret reason why I love you...</p>
 
-            <div class="bouquet-container relative w-full max-w-lg mb-12 reveal reveal-zoom">
-                <div class="flower text-7xl" style="--rot: -30deg; left: 20%; animation: bloom 1s forwards 0.2s;">🌹
-                </div>
-                <div class="flower text-7xl" style="--rot: -15deg; left: 35%; animation: bloom 1s forwards 0.4s;">🌻
-                </div>
-                <div class="flower text-7xl" style="--rot: 0deg; left: 50%; animation: bloom 1s forwards 0.6s;">🌸</div>
-                <div class="flower text-7xl" style="--rot: 15deg; left: 65%; animation: bloom 1s forwards 0.8s;">🌺
-                </div>
-                <div class="flower text-7xl" style="--rot: 30deg; left: 80%; animation: bloom 1s forwards 1.0s;">🌷
-                </div>
+            <div class="bouquet-container relative w-full max-w-lg h-[400px] mb-12 reveal reveal-zoom">
+                <!-- Interactive Flowers Spaced in an Arc -->
+                <div class="flower interactive-flower text-6xl cursor-pointer hover:scale-125 transition-transform" 
+                    style="--rot: -55deg; left: 0%; bottom: 10%;" onclick="revealReason(0, '🌹', 'The way your eyes sparkle when you laugh... it is my favorite view in the world.')">🌹</div>
+                <div class="flower interactive-flower text-6xl cursor-pointer hover:scale-125 transition-transform" 
+                    style="--rot: -35deg; left: 15%; bottom: 30%;" onclick="revealReason(1, '🌻', 'How you always believe in me, even when I forget to believe in myself.')">🌻</div>
+                <div class="flower interactive-flower text-6xl cursor-pointer hover:scale-125 transition-transform" 
+                    style="--rot: -15deg; left: 32%; bottom: 45%;" onclick="revealReason(2, '🌸', 'Your kindness and how you care for everyone around you with such grace.')">🌸</div>
+                <div class="flower interactive-flower text-6xl cursor-pointer hover:scale-125 transition-transform" 
+                    style="--rot: 0deg; left: 50%; bottom: 55%;" onclick="revealReason(3, '🌼', 'Your patience and understanding, making even the hardest days feel light.')">🌼</div>
+                <div class="flower interactive-flower text-6xl cursor-pointer hover:scale-125 transition-transform" 
+                    style="--rot: 15deg; left: 68%; bottom: 45%;" onclick="revealReason(4, '🏵️', 'The wisdom you share and the way you make me a better person every day.')">🏵️</div>
+                <div class="flower interactive-flower text-6xl cursor-pointer hover:scale-125 transition-transform" 
+                    style="--rot: 35deg; left: 85%; bottom: 30%;" onclick="revealReason(5, '🌺', 'The peace I feel just by hearing your voice after a long, tiring day.')">🌺</div>
+                <div class="flower interactive-flower text-6xl cursor-pointer hover:scale-125 transition-transform" 
+                    style="--rot: 55deg; left: 100%; bottom: 10%;" onclick="revealReason(6, '🌷', 'Simply because you are YOU—my queen, my partner, and my best friend.')">🌷</div>
+                
+                <!-- Bouquet Wrapping -->
+                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 text-9xl opacity-30 select-none pointer-events-none">💐</div>
             </div>
 
-            <div class="text-center reveal reveal-up mt-8">
-                <div class="glass p-6 rounded-3xl inline-block">
-                    <p class="text-amber-400 font-bold">You are the most beautiful flower in my garden! 💝</p>
+            <!-- Secret Note Display -->
+            <div id="flower-note" class="reveal reveal-up glass min-h-[120px] max-w-md w-full p-6 rounded-3xl border border-amber-400/20 shadow-2xl flex flex-col items-center justify-center text-center transform transition-all duration-500 opacity-0 scale-95 translate-y-4">
+                <div id="note-icon" class="text-4xl mb-3 animate-bounce-gentle">✨</div>
+                <p id="note-text" class="text-xl text-amber-100 font-dancing italic leading-relaxed">Select a flower from the bouquet...</p>
+            </div>
+
+            <div class="text-center reveal reveal-up mt-12">
+                <div class="glass py-3 px-8 rounded-full border border-white/5 inline-block">
+                    <p class="text-amber-400 font-bold uppercase tracking-widest text-xs">A growing garden for an infinite love</p>
                 </div>
             </div>
         </section>
@@ -1967,6 +1914,77 @@
                 <div class="text-5xl mb-4">💖</div>
                 <h3 class="text-2xl font-bold text-amber-400">Thank you for being so patient with me!</h3>
                 <p class="text-amber-100/60 mt-2">I promise to love you better every day.</p>
+            </div>
+        </section>
+
+        <!-- Section 19 Part 2: Birthday Message & Surprise -->
+        <section id="section-birthday-message"
+            class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always mt-20">
+            <div class="max-w-2xl w-full text-center">
+                <div class="reveal reveal-zoom glass rounded-3xl p-8 md:p-12 shadow-2xl space-y-8">
+                    <div class="text-7xl mb-4 animate-bounce-gentle">🤴</div>
+                    <h2 class="text-4xl md:text-5xl font-bold gold-gradient-text font-dancing">Thank You for Being You ✨
+                    </h2>
+
+                    <div class="space-y-4">
+                        <p class="text-xl text-amber-50">Thank you for coming into my life and choosing me. You are the
+                            greatest blessing I have ever received.</p>
+                        <p class="text-2xl font-bold text-amber-400 font-dancing">I Love You Beyond Everything! ✨👑</p>
+                    </div>
+
+                    <div class="bg-amber-400/10 rounded-2xl p-6 mb-8">
+                        <p class="text-sm text-amber-200 mb-2">💡 <strong>Pro Tip:</strong></p>
+                        <p class="text-sm text-amber-200">Bookmark this page and visit it anytime you want to feel
+                            loved!</p>
+                    </div>
+
+                    <div class="flex justify-center gap-4 text-4xl">
+                        <span class="animate-float">✨</span>
+                        <span class="animate-float animation-delay-200">👑</span>
+                        <span class="animate-float animation-delay-400">🌟</span>
+                    </div>
+
+                    <!-- Interactive Button -->
+                    <div class="text-center">
+                        <button onclick="scrollToSurprise()"
+                            class="bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold py-4 px-8 rounded-full shadow-lg transform hover:scale-110 hover:shadow-2xl transition-all duration-300 animate-pulse-gentle">
+                            Click for a Surprise! 🎁
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 20: Final Surprise Message (Hidden by default) -->
+        <section id="surprise"
+            class="hidden relative z-10 min-h-screen flex-col items-center justify-center px-4 py-12 snap-start snap-always">
+            <div
+                class="max-w-md w-full glass rounded-3xl shadow-2xl p-8 text-center animate-pop-in relative overflow-hidden">
+                <!-- Royal gold overlay -->
+                <div class="absolute inset-0 bg-amber-400/5 animate-pulse-gentle"></div>
+
+                <div class="relative z-10">
+                    <div class="text-7xl mb-4 animate-spin-slow"></div>
+                    <h3 class="text-4xl font-bold mb-4 gold-gradient-text">
+                        <span class="font-dancing">I Love You, </span>
+                        <span class="font-dancing">Mitisa</span><span class="font-dancing">!</span>
+                    </h3>
+                    <p class="text-xl mb-6 text-amber-200">Forever and Always ♾️✨</p>
+                    <div class="flex justify-center gap-2 text-4xl animate-bounce-slow mb-6">
+                        <span class="text-amber-400">✨</span>
+                        <span class="text-amber-400 animation-delay-200"></span>
+                        <span class="text-amber-400 animation-delay-400">🌟</span>
+                        <span class="text-amber-400 animation-delay-600">✨</span>
+                    </div>
+                    <p class="text-lg italic text-amber-50/90">
+                        "You are my sunshine, my happiness, and my everything"
+                    </p>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-8 text-center text-amber-500/60">
+                <p class="text-sm">Made with ✨ for the most amazing woman in the world</p>
             </div>
         </section>
 

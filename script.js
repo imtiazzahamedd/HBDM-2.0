@@ -1197,3 +1197,32 @@ if (apologySection) {
     }, { threshold: 0.5 });
     observer.observe(apologySection);
 }
+
+// Virtual Bouquet Interaction
+function revealReason(index, icon, reason) {
+    const noteEl = document.getElementById('flower-note');
+    const noteIcon = document.getElementById('note-icon');
+    const noteText = document.getElementById('note-text');
+
+    if (!noteEl || !noteIcon || !noteText) return;
+
+    // Reset animation
+    noteEl.style.opacity = '0';
+    noteEl.style.transform = 'translateY(20px) scale(0.95)';
+
+    setTimeout(() => {
+        noteIcon.textContent = icon;
+        noteText.textContent = reason;
+        
+        // Appear with animation
+        noteEl.style.opacity = '1';
+        noteEl.style.transform = 'translateY(0) scale(1)';
+        
+        // Add a floating heart effect from the flower
+        const flowers = document.querySelectorAll('.interactive-flower');
+        if (flowers[index]) {
+            const rect = flowers[index].getBoundingClientRect();
+            spawnFloatingHearts(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        }
+    }, 300);
+}
