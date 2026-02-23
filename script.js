@@ -687,13 +687,13 @@ window.addEventListener('load', initScratchCard);
 
 // Love Wheel Logic
 const reasons = [
-    "Your beautiful smile 😊",
-    "The way you care for me ❤️",
-    "How you make me laugh 😂",
-    "Your incredible strength 💪",
-    "The kindness in your heart ✨",
-    "Your morning grumpy face 😴",
-    "Everything about you! ♾️"
+    "I Adore your magical Hasi..!! 😊",
+    "I Adore the Maya in your eyes..!! ✨",
+    "I Like our Bhalobasha, it's my home..!! ❤️",
+    "I Like your Spondon, the way you exist in me..!! 💓",
+    "I Adore the Sukh, the peace in your presence..!! 🕊️",
+    "I Like our beautiful Shopno, our shared dreams..!! 🌟",
+    "I Adore Everything, because love needs no reason..!! ♾️"
 ];
 
 let isWheelSpinning = false;
@@ -704,14 +704,30 @@ function spinLoveWheel() {
     const wheel = document.getElementById('love-wheel');
     const resultDiv = document.getElementById('wheel-result');
     const resultText = document.getElementById('wheel-text');
+    const pointer = document.querySelector('.wheel-pointer');
+
+    if (pointer) pointer.classList.add('pointer-wiggle');
 
     const randomRotation = Math.floor(1800 + Math.random() * 1800);
     wheel.style.transform = `rotate(${randomRotation}deg)`;
 
     setTimeout(() => {
+        if (pointer) pointer.classList.remove('pointer-wiggle');
         isWheelSpinning = false;
-        const index = Math.floor(Math.random() * reasons.length);
-        resultText.textContent = reasons[index];
+        
+        // Calculate the index based on the final rotation
+        // The pointer is at the top (270 degrees)
+        // Angle of segment i starts at initial_offset = 0
+        const segmentAngle = 360 / reasons.length;
+        const actualRotation = randomRotation % 360;
+        
+        // Final index calculation
+        // Index i is at angle: (i * segmentAngle + segmentAngle / 2)
+        // After rotation Rot, it is at: (i * segmentAngle + segmentAngle / 2 + Rot) % 360
+        // We want this value to be approx 270
+        let winningIndex = Math.floor(((270 - actualRotation + 360) % 360) / segmentAngle);
+        
+        resultText.textContent = reasons[winningIndex];
         resultDiv.classList.remove('hidden');
         createConfetti();
     }, 4100);
@@ -761,46 +777,79 @@ function openSealedLetter() {
 }
 
 // Rose Bloom Interaction Logic
-const rosePattern = [
-    // "I"
-    { x: 50, y: 5 }, { x: 50, y: 10 }, { x: 50, y: 15 },
+const rosePatternI = [
+    // === SERIF "I" ===
+    { x: 42, y: 35 }, { x: 46, y: 35 }, { x: 50, y: 35 }, { x: 54, y: 35 }, { x: 58, y: 35 }, 
+    { x: 50, y: 40 }, { x: 50, y: 45 }, { x: 50, y: 50 }, { x: 50, y: 55 },
+    { x: 42, y: 60 }, { x: 46, y: 60 }, { x: 50, y: 60 }, { x: 54, y: 60 }, { x: 58, y: 60 }
+];
 
-    // "❤️" (Love)
-    { x: 40, y: 28 }, { x: 32, y: 28 }, { x: 25, y: 35 }, { x: 25, y: 45 }, // Left lobe
-    { x: 35, y: 52 }, { x: 50, y: 60 }, // Bottom transition left
-    { x: 65, y: 52 }, { x: 75, y: 45 }, { x: 75, y: 35 }, { x: 68, y: 28 }, { x: 60, y: 28 }, // Right lobe
-    { x: 50, y: 35 }, // Center top deep
+const rosePatternHeart = [
+    // === ELEGANT HEART ===
+    { x: 50, y: 45 }, 
+    { x: 42, y: 40 }, { x: 32, y: 40 }, { x: 22, y: 48 }, { x: 22, y: 58 }, { x: 32, y: 68 }, { x: 42, y: 76 },
+    { x: 50, y: 84 },
+    { x: 58, y: 76 }, { x: 68, y: 68 }, { x: 78, y: 58 }, { x: 78, y: 48 }, { x: 68, y: 40 }, { x: 58, y: 40 }
+];
 
-    // "U" (You)
-    { x: 30, y: 72 }, { x: 30, y: 82 }, { x: 35, y: 92 }, { x: 50, y: 98 }, // Bottom curve
-    { x: 65, y: 92 }, { x: 70, y: 82 }, { x: 70, y: 72 } // Right side
+const rosePatternU = [
+    // === STYLISH "U" ===
+    { x: 30, y: 35 }, { x: 30, y: 50 },
+    { x: 35, y: 65 }, { x: 42, y: 75 }, { x: 50, y: 80 }, { x: 58, y: 75 }, { x: 65, y: 65 },
+    { x: 70, y: 50 }, { x: 70, y: 35 }
 ];
 
 let currentRoseIndex = 0;
+let currentStage = 0; // 0: I, 1: Heart, 2: U
 const roseTrigger = document.getElementById('rose-trigger');
 const roseContainer = document.getElementById('rose-pattern-container');
 const roseFinalMessage = document.getElementById('rose-final-message');
 
 if (roseTrigger && roseContainer) {
     roseTrigger.addEventListener('click', () => {
-        if (currentRoseIndex < rosePattern.length) {
-            bloomRose(rosePattern[currentRoseIndex]);
+        let pattern = [];
+        if (currentStage === 0) pattern = rosePatternI;
+        else if (currentStage === 1) pattern = rosePatternHeart;
+        else if (currentStage === 2) pattern = rosePatternU;
+
+        if (currentRoseIndex < pattern.length) {
+            bloomRose(pattern[currentRoseIndex]);
             currentRoseIndex++;
 
             // Pop effect on trigger
             roseTrigger.style.transform = 'scale(0.8)';
             setTimeout(() => roseTrigger.style.transform = 'scale(1)', 100);
 
-            // If pattern is complete
-            if (currentRoseIndex === rosePattern.length) {
-                setTimeout(() => {
-                    if (roseFinalMessage) roseFinalMessage.classList.remove('hidden');
-                    createConfetti();
-                    // Extra confetti burst
-                    for (let i = 0; i < 5; i++) {
-                        setTimeout(createConfetti, i * 500);
-                    }
-                }, 1000);
+            // If this stage is complete
+            if (currentRoseIndex === pattern.length) {
+                if (currentStage < 2) {
+                    // Transition to next stage
+                    setTimeout(() => {
+                        roseContainer.style.opacity = '0';
+                        roseContainer.style.transition = 'opacity 0.8s ease';
+                        setTimeout(() => {
+                            roseContainer.innerHTML = '';
+                            roseContainer.style.opacity = '1';
+                            currentStage++;
+                            currentRoseIndex = 0;
+                            createConfetti();
+                        }, 800);
+                    }, 1200);
+                } else {
+                    // Final reveal: fade out "U" and show text
+                    setTimeout(() => {
+                        roseContainer.style.opacity = '0';
+                        roseContainer.style.transition = 'opacity 0.8s ease';
+                        setTimeout(() => {
+                            roseContainer.innerHTML = '';
+                            if (roseFinalMessage) roseFinalMessage.classList.remove('hidden');
+                            createConfetti();
+                            for (let i = 0; i < 5; i++) {
+                                setTimeout(createConfetti, i * 300);
+                            }
+                        }, 800);
+                    }, 1200);
+                }
             }
         }
     });

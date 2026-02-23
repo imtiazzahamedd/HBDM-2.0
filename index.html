@@ -546,7 +546,7 @@
                     <div class="voyage-marker">🏠</div>
                     <div class="voyage-card glass p-4 rounded-3xl text-center">
                         <h3 class="font-bold text-amber-400">Our Home</h3>
-                        <p class="text-xs text-amber-200">Building our own little paradise together. 🏡</p>
+                        <p class="text-xs text-amber-200">Building our own little paradise together. 🏡 <br> Chuttusa obviously hehe.. </p>
                     </div>
                 </div>
                 <!-- Stop 4 -->
@@ -554,7 +554,7 @@
                     <div class="voyage-marker">♾️</div>
                     <div class="voyage-card glass p-4 rounded-3xl text-center">
                         <h3 class="font-bold text-amber-400">Always</h3>
-                        <p class="text-xs text-amber-200">Our voyage continues to infinity and beyond! ⛵❤️</p>
+                        <p class="text-xs text-amber-200">Our voyage continues to One by Zero and beyond! ⛵❤️</p>
                     </div>
                 </div>
             </div>
@@ -565,22 +565,29 @@
             class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always overflow-hidden">
             <h2
                 class="reveal reveal-up text-4xl md:text-5xl font-bold gold-gradient-text mb-6 font-dancing text-center">
-                Why I Love You? 🎡
+                Things I Adore About You ✨
             </h2>
-            <p class="text-amber-200 mb-8 text-center reveal reveal-up">Spin the wheel to find a reason...</p>
+            <p class="text-amber-200 mb-8 text-center reveal reveal-up">Spin the wheel to see what I like the most...</p>
 
             <div class="wheel-container reveal reveal-zoom">
-                <div class="wheel-pointer">👇</div>
+                <div class="wheel-pointer">
+                    <div class="wheel-pointer-arrow"></div>
+                </div>
                 <div id="love-wheel" class="wheel-main cursor-pointer" onclick="spinLoveWheel()">
-                    <div class="absolute inset-0 flex items-center justify-center text-5xl opacity-20">🎡</div>
-                    <!-- Wheel Labels -->
-                    <div class="wheel-label" style="--i:0">SMILE</div>
-                    <div class="wheel-label" style="--i:1">CARE</div>
-                    <div class="wheel-label" style="--i:2">LAUGH</div>
-                    <div class="wheel-label" style="--i:3">STRENGTH</div>
-                    <div class="wheel-label" style="--i:4">KIND</div>
-                    <div class="wheel-label" style="--i:5">CUTE</div>
-                    <div class="wheel-label" style="--i:6">ALL</div>
+                    <!-- Decorative Rings -->
+                    <div class="wheel-inner-ring"></div>
+                    
+                    <!-- Labels centered in segments -->
+                    <div class="wheel-label" style="transform: rotate(25.7deg);"><span>Hasi</span></div>
+                    <div class="wheel-label" style="transform: rotate(77.1deg);"><span>Maya</span></div>
+                    <div class="wheel-label" style="transform: rotate(128.6deg);"><span>Bhalobasha</span></div>
+                    <div class="wheel-label" style="transform: rotate(180deg);"><span>Spondon</span></div>
+                    <div class="wheel-label" style="transform: rotate(231.4deg);"><span>Sukh</span></div>
+                    <div class="wheel-label" style="transform: rotate(282.9deg);"><span>Shopno</span></div>
+                    <div class="wheel-label" style="transform: rotate(334.3deg);"><span>Sob</span></div>
+                    
+                    <!-- Center Hub -->
+                    <div class="wheel-hub"></div>
                 </div>
             </div>
 
@@ -641,7 +648,7 @@
                     <div class="absolute text-amber-400 text-2xl animate-pulse">❤️</div>
                 </div>
 
-                <p class="text-xl text-amber-200 italic">And counting... forever! ✨♾️</p>
+                <p class="text-xl text-amber-200 italic">And counting... forever! ✨♾️ <br> In Sha Allahh </p>
             </div>
         </section>
 
@@ -652,6 +659,7 @@
                 Bloom Our Love 🌹
             </h2>
             <p class="text-amber-200 mb-12 text-center reveal reveal-up">Tap the heart to make our love bloom...</p>
+            <p class="text-amber-200 mb-12 text-center reveal reveal-up">keep bloomiiiing for a little surprise hehe...</p>
 
             <div class="w-full max-w-sm flex flex-col items-center">
                 <!-- 1. The Trigger (Top space) -->
@@ -666,11 +674,17 @@
                     <div id="rose-pattern-container" class="absolute inset-0 pointer-events-none scale-75 md:scale-100">
                         <!-- Roses will be injected here -->
                     </div>
+                    
+                    <!-- Final Message positioned at the center where roses bloom -->
+                    <div id="rose-final-message" class="hidden absolute inset-0 flex flex-col items-center justify-center text-center animate-pop-in z-20">
+                        <h3 class="text-5xl md:text-7xl font-bold gold-gradient-text font-dancing drop-shadow-glow">I Love You</h3>
+                        <div class="mt-4 flex items-center justify-center space-x-2">
+                            <span class="w-12 h-[1px] bg-amber-500/50"></span>
+                            <span class="text-amber-200 text-sm tracking-widest uppercase">always & forever</span>
+                            <span class="w-12 h-[1px] bg-amber-500/50"></span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div id="rose-final-message" class="hidden mt-12 text-center animate-pop-in">
-                <h3 class="text-3xl md:text-4xl font-bold gold-gradient-text font-dancing">Our love is forever blooming ✨</h3>
             </div>
         </section>
 
