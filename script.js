@@ -5,21 +5,41 @@ const skipBtn = document.getElementById('skip-intro');
 const introTrigger = document.getElementById('intro-trigger');
 let introTimeouts = [];
 
-// Define all 12 sequence steps - Fresh cinematic messages
+// Define all 12 sequence steps
 const introTexts = [
-    { id: 'intro-text-1', duration: 2500 },
-    { id: 'intro-text-2', duration: 3000 },
-    { id: 'intro-text-3', duration: 5000 },
-    { id: 'intro-text-4', duration: 2000 },
-    { id: 'intro-text-5', duration: 3000 },
-    { id: 'intro-text-6', duration: 3500 },
-    { id: 'intro-text-7', duration: 3500 },
-    { id: 'intro-text-8', duration: 3000 },
-    { id: 'intro-text-9', duration: 2000 },
+    { id: 'intro-text-1',  duration: 2500 },
+    { id: 'intro-text-2',  duration: 3000 },
+    { id: 'intro-text-3',  duration: 5000 },
+    { id: 'intro-text-4',  duration: 2000 },
+    { id: 'intro-text-5',  duration: 3200 },
+    { id: 'intro-text-6',  duration: 3500 },
+    { id: 'intro-text-7',  duration: 3500 },
+    { id: 'intro-text-cake', duration: 4500 },
+    { id: 'intro-text-8',  duration: 3000 },
+    { id: 'intro-text-9',  duration: 2000 },
     { id: 'intro-text-10', duration: 3500 },
     { id: 'intro-text-11', duration: 3500 },
-    { id: 'intro-text-12', duration: 4000 }
+    { id: 'intro-text-12', duration: 4500 }
 ];
+
+// Spawn floating heart particles
+function spawnParticles(count = 8) {
+    const container = document.getElementById('intro-particles');
+    if (!container) return;
+    const symbols = ['💛', '✨', '✦', '💝', '⭐', '🌟', '💫', '🔥'];
+    for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'intro-particle';
+        p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        const x = Math.random() * 100;
+        const dx = (Math.random() - 0.5) * 200;
+        const dur = 3 + Math.random() * 3;
+        const del = Math.random() * 1.5;
+        p.style.cssText = `left:${x}%;--dx:${dx}px;--dur:${dur}s;--del:${del}s;font-size:${0.8 + Math.random()}rem;`;
+        container.appendChild(p);
+        setTimeout(() => p.remove(), (dur + del + 0.5) * 1000);
+    }
+}
 
 // Initialize sequence
 function startIntro() {
@@ -28,56 +48,98 @@ function startIntro() {
     // Lock scrolling
     document.body.style.overflow = 'hidden';
 
-    let currentDelay = 800;
+    // Start particles
+    spawnParticles(12);
+    const particleInterval = setInterval(() => spawnParticles(4), 2500);
+    introTimeouts.push({ type: 'interval', ref: particleInterval });
+
+    let currentDelay = 500;
 
     introTexts.forEach((text, index) => {
+        // Show panel
         const t1 = setTimeout(() => {
-            const element = document.getElementById(text.id);
-            if (element) {
-                element.classList.add('intro-text-premium', 'active');
-
-                const t2 = setTimeout(() => {
-                    element.classList.remove('active');
-                }, text.duration);
-                introTimeouts.push(t2);
-            }
+            const el = document.getElementById(text.id);
+            if (!el) return;
+            el.style.opacity = '1';
+            el.classList.remove('panel-exit');
+            el.classList.add('panel-active');
         }, currentDelay);
-        introTimeouts.push(t1);
+        introTimeouts.push({ type: 'timeout', ref: t1 });
 
-        currentDelay += text.duration + 800;
+        // Exit panel (600ms before next panel arrives)
+        const exitDelay = currentDelay + text.duration;
+        const t2 = setTimeout(() => {
+            const el = document.getElementById(text.id);
+            if (!el) return;
+            el.classList.remove('panel-active');
+            el.classList.add('panel-exit');
+            setTimeout(() => { if (el) el.style.opacity = '0'; }, 600);
+
+            // Spawn extra particles on birthday panel
+            if (text.id === 'intro-text-5') spawnParticles(20);
+        }, exitDelay);
+        introTimeouts.push({ type: 'timeout', ref: t2 });
+
+        currentDelay += text.duration + 600;
     });
 
     // End intro
     const tEnd = setTimeout(() => {
+        clearInterval(particleInterval);
         finishIntro();
     }, currentDelay);
-    introTimeouts.push(tEnd);
+    introTimeouts.push({ type: 'timeout', ref: tEnd });
 }
 
 function finishIntro() {
     if (introSequence) {
-        introSequence.style.opacity = '0';
-        introSequence.style.transition = 'opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        // Stop intro music
+        const introAudio = document.getElementById('intro-audio');
+        if (introAudio) {
+            // Fade out
+            const fadeInterval = setInterval(() => {
+                if (introAudio.volume > 0.1) {
+                    introAudio.volume -= 0.1;
+                } else {
+                    introAudio.pause();
+                    introAudio.currentTime = 0;
+                    clearInterval(fadeInterval);
+                }
+            }, 100);
+        }
 
+        introSequence.classList.add('intro-finishing');
         setTimeout(() => {
             introSequence.style.display = 'none';
             if (mainContent) {
                 mainContent.style.opacity = '1';
                 document.body.style.overflow = 'auto';
             }
-        }, 1500);
+        }, 1200);
     }
 }
 
 function skipIntro() {
-    // Clear all scheduled timeouts
-    introTimeouts.forEach(t => clearTimeout(t));
+    // Clear all scheduled timeouts and intervals
+    introTimeouts.forEach(item => {
+        if (item && typeof item === 'object') {
+            if (item.type === 'interval') clearInterval(item.ref);
+            else clearTimeout(item.ref);
+        } else {
+            clearTimeout(item);
+        }
+    });
+    introTimeouts = [];
 
-    // Jump to the end animation state
     if (introSequence) {
-        introSequence.style.opacity = '0';
-        introSequence.style.transition = 'opacity 0.8s ease-out';
+        // Stop intro music immediately on skip
+        const introAudio = document.getElementById('intro-audio');
+        if (introAudio) {
+            introAudio.pause();
+            introAudio.currentTime = 0;
+        }
 
+        introSequence.classList.add('intro-finishing');
         setTimeout(() => {
             introSequence.style.display = 'none';
             if (mainContent) {
@@ -95,12 +157,33 @@ if (skipBtn) {
 
 if (introTrigger) {
     introTrigger.addEventListener('click', () => {
+        console.log("Intro trigger clicked");
+        // Play intro music on tap
+        const introAudio = document.getElementById('intro-audio');
+        if (introAudio) {
+            console.log("Intro audio element found, attempting to play...");
+            introAudio.volume = 1;
+            introAudio.play()
+                .then(() => console.log("Intro music playing successfully"))
+                .catch(e => console.error("Intro music play failed:", e));
+        } else {
+            console.error("Intro audio element NOT found!");
+        }
+
+        // Burst particles on tap
+        spawnParticles(25);
+        const heart = introTrigger.querySelector('.intro-hero-heart');
+        if (heart) {
+            heart.style.transition = 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1)';
+            heart.style.transform = 'scale(2)';
+        }
+        introTrigger.style.transition = 'opacity 0.6s ease';
         introTrigger.style.opacity = '0';
         introTrigger.style.pointerEvents = 'none';
         setTimeout(() => {
             introTrigger.style.display = 'none';
             startIntro();
-        }, 500);
+        }, 600);
     });
 }
 
@@ -220,14 +303,23 @@ function updateCountdown() {
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor(diff / (1000 * 60 * 60));
     const minutes = Math.floor(diff / (1000 * 60));
+    const seconds = Math.floor(diff / 1000);
 
     const daysEl = document.getElementById('days-count');
     const hoursEl = document.getElementById('hours-count');
     const minutesEl = document.getElementById('minutes-count');
+    const secondsEl = document.getElementById('seconds-count');
 
-    if (daysEl) daysEl.textContent = days.toLocaleString();
-    if (hoursEl) hoursEl.textContent = hours.toLocaleString();
-    if (minutesEl) minutesEl.textContent = minutes.toLocaleString();
+    function formatNumber(num) {
+        if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+        if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+        return num.toLocaleString();
+    }
+
+    if (daysEl) daysEl.textContent = formatNumber(days);
+    if (hoursEl) hoursEl.textContent = formatNumber(hours);
+    if (minutesEl) minutesEl.textContent = formatNumber(minutes);
+    if (secondsEl) secondsEl.textContent = formatNumber(seconds);
 }
 
 // Interactive Quiz - REMOVED
@@ -458,6 +550,15 @@ if (navToggle && navMenu) {
         navMenu.classList.toggle('hidden');
         navToggle.classList.toggle('active');
     });
+
+    // Close menu when clicking a link
+    const navLinks = navMenu.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.add('hidden');
+            navToggle.classList.remove('active');
+        });
+    });
 }
 
 // Music Player Logic (Local Audio)
@@ -543,42 +644,42 @@ function formatTime(seconds) {
 function initScratchCard() {
     const canvas = document.getElementById('scratch-canvas');
     if (!canvas) return;
-    
+
     const ctx = canvas.getContext('2d');
     const width = canvas.width;
     const height = canvas.height;
-    
+
     // Fill with gold/lava color
     ctx.fillStyle = '#d97706';
     ctx.fillRect(0, 0, width, height);
     ctx.fillStyle = '#fbbf24';
     ctx.font = 'bold 24px Arial';
     ctx.textAlign = 'center';
-    ctx.fillText('SCRATCH HERE ✨', width/2, height/2 + 8);
-    
+    ctx.fillText('SCRATCH HERE ✨', width / 2, height / 2 + 8);
+
     let isDrawing = false;
-    
+
     function scratch(e) {
         if (!isDrawing) return;
         const rect = canvas.getBoundingClientRect();
         const clientX = (e.clientX !== undefined) ? e.clientX : (e.touches ? e.touches[0].clientX : 0);
         const clientY = (e.clientY !== undefined) ? e.clientY : (e.touches ? e.touches[0].clientY : 0);
-        
+
         const x = clientX - rect.left;
         const y = clientY - rect.top;
-        
+
         ctx.globalCompositeOperation = 'destination-out';
         ctx.beginPath();
         ctx.arc(x, y, 20, 0, Math.PI * 2);
         ctx.fill();
     }
-    
+
     canvas.addEventListener('mousedown', () => isDrawing = true);
-    canvas.addEventListener('touchstart', (e) => { isDrawing = true; e.preventDefault(); }, {passive: false});
+    canvas.addEventListener('touchstart', (e) => { isDrawing = true; e.preventDefault(); }, { passive: false });
     window.addEventListener('mouseup', () => isDrawing = false);
     window.addEventListener('touchend', () => isDrawing = false);
     canvas.addEventListener('mousemove', scratch);
-    canvas.addEventListener('touchmove', (e) => { scratch(e); e.preventDefault(); }, {passive: false});
+    canvas.addEventListener('touchmove', (e) => { scratch(e); e.preventDefault(); }, { passive: false });
 }
 
 // Call init on load
@@ -599,14 +700,14 @@ let isWheelSpinning = false;
 function spinLoveWheel() {
     if (isWheelSpinning) return;
     isWheelSpinning = true;
-    
+
     const wheel = document.getElementById('love-wheel');
     const resultDiv = document.getElementById('wheel-result');
     const resultText = document.getElementById('wheel-text');
-    
+
     const randomRotation = Math.floor(1800 + Math.random() * 1800);
     wheel.style.transform = `rotate(${randomRotation}deg)`;
-    
+
     setTimeout(() => {
         isWheelSpinning = false;
         const index = Math.floor(Math.random() * reasons.length);
@@ -623,10 +724,10 @@ function cutCake() {
     const cake = document.getElementById('birthday-cake');
     const reveal = document.getElementById('cake-reveal');
     const flame = cake.querySelector('.flame');
-    
+
     cake.classList.add('cut');
     if (flame) flame.classList.add('hidden');
-    
+
     setTimeout(() => {
         isCakeCut = true;
         reveal.classList.remove('hidden');
@@ -635,4 +736,307 @@ function cutCake() {
             setTimeout(createConfetti, i * 300);
         }
     }, 500);
+}
+
+// Sealed Letter reveal
+function openSealedLetter() {
+    const envelope = document.getElementById('sealed-envelope');
+    const letter = document.getElementById('opened-letter');
+    if (!envelope || !letter) return;
+
+    // Animate envelope away
+    envelope.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    envelope.style.opacity = '0';
+    envelope.style.transform = 'scale(0.85) translateY(20px)';
+
+    setTimeout(() => {
+        envelope.classList.add('hidden');
+        letter.classList.remove('hidden');
+        // Trigger confetti burst
+        createConfetti();
+        for (let i = 0; i < 4; i++) {
+            setTimeout(createConfetti, i * 250);
+        }
+    }, 500);
+}
+
+// Rose Bloom Interaction Logic
+const rosePattern = [
+    // "I"
+    { x: 50, y: 5 }, { x: 50, y: 10 }, { x: 50, y: 15 },
+
+    // "❤️" (Love)
+    { x: 40, y: 28 }, { x: 32, y: 28 }, { x: 25, y: 35 }, { x: 25, y: 45 }, // Left lobe
+    { x: 35, y: 52 }, { x: 50, y: 60 }, // Bottom transition left
+    { x: 65, y: 52 }, { x: 75, y: 45 }, { x: 75, y: 35 }, { x: 68, y: 28 }, { x: 60, y: 28 }, // Right lobe
+    { x: 50, y: 35 }, // Center top deep
+
+    // "U" (You)
+    { x: 30, y: 72 }, { x: 30, y: 82 }, { x: 35, y: 92 }, { x: 50, y: 98 }, // Bottom curve
+    { x: 65, y: 92 }, { x: 70, y: 82 }, { x: 70, y: 72 } // Right side
+];
+
+let currentRoseIndex = 0;
+const roseTrigger = document.getElementById('rose-trigger');
+const roseContainer = document.getElementById('rose-pattern-container');
+const roseFinalMessage = document.getElementById('rose-final-message');
+
+if (roseTrigger && roseContainer) {
+    roseTrigger.addEventListener('click', () => {
+        if (currentRoseIndex < rosePattern.length) {
+            bloomRose(rosePattern[currentRoseIndex]);
+            currentRoseIndex++;
+
+            // Pop effect on trigger
+            roseTrigger.style.transform = 'scale(0.8)';
+            setTimeout(() => roseTrigger.style.transform = 'scale(1)', 100);
+
+            // If pattern is complete
+            if (currentRoseIndex === rosePattern.length) {
+                setTimeout(() => {
+                    if (roseFinalMessage) roseFinalMessage.classList.remove('hidden');
+                    createConfetti();
+                    // Extra confetti burst
+                    for (let i = 0; i < 5; i++) {
+                        setTimeout(createConfetti, i * 500);
+                    }
+                }, 1000);
+            }
+        }
+    });
+}
+
+function bloomRose(pos) {
+    const rose = document.createElement('div');
+    rose.className = 'absolute';
+    // Position using percentages based on the pattern
+    rose.style.left = `${pos.x}%`;
+    rose.style.top = `${pos.y}%`;
+    rose.style.transform = 'translate(-50%, -50%)';
+
+    rose.innerHTML = `
+        <div class="rose-bloom-container">
+            <div class="rose-glow"></div>
+            <div class="rose-center"></div>
+            <div class="rose-petal-container">
+                <div class="rose-petal"></div>
+                <div class="rose-petal"></div>
+                <div class="rose-petal"></div>
+                <div class="rose-petal"></div>
+                <div class="rose-petal"></div>
+                <div class="rose-petal"></div>
+                <div class="rose-petal"></div>
+                <div class="rose-petal"></div>
+            </div>
+        </div>
+    `;
+
+    roseContainer.appendChild(rose);
+}
+
+// === BALLOON SKY LOGIC ===
+const balloonSky = document.getElementById('balloon-sky');
+const wishesCountDisplay = document.getElementById('wishes-count');
+let totalWishesRevealed = 0;
+
+const balloonWishes = [
+    "Always Smile 😊", "Stay Beautiful 👑", "Endless Joy ✨", "Pure Love ❤️",
+    "Dream Big 🌟", "Forever Mine 💍", "Sweetest Soul 🍬", "My Everything 🌎",
+    "Radiant Queen 👸", "Heart of Gold 💛", "You're Magic 🪄", "Truly Special 💎"
+];
+
+const balloonColors = ['#dc2626', '#db2777', '#d97706', '#9333ea', '#4f46e5', '#ca8a04'];
+
+if (balloonSky) {
+    balloonSky.addEventListener('click', (e) => {
+        // Only spawn if clicking the sky directly, not an existing balloon
+        if (e.target.id === 'balloon-sky' || e.target.closest('#balloon-sky')) {
+            const rect = balloonSky.getBoundingClientRect();
+            // Clamp x to keep balloons inside the sky (60px width for balloon)
+            let x = e.clientX - rect.left;
+            x = Math.max(30, Math.min(rect.width - 30, x));
+            createBalloon(x);
+        }
+    });
+}
+
+function createBalloon(x) {
+    const balloon = document.createElement('div');
+    balloon.className = 'balloon-wrapper';
+
+    // Initial position
+    balloon.style.left = `${x}px`;
+    const color = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+
+    balloon.innerHTML = `
+        <div class="balloon-base" style="--bg-color: ${color}">
+            <div class="balloon-string"></div>
+        </div>
+    `;
+
+    balloonSky.appendChild(balloon);
+
+    // Animate upward
+    const duration = 3000 + Math.random() * 2000;
+    const startTime = Date.now();
+
+    function animate() {
+        const elapsed = Date.now() - startTime;
+        const progress = elapsed / duration;
+
+        if (progress < 1) {
+            const y = progress * (balloonSky.offsetHeight + 200);
+            balloon.style.bottom = `${y - 100}px`;
+            // Slight horizontal sway
+            const sway = Math.sin(progress * 10) * 20;
+            balloon.style.transform = `translateX(${sway}px)`;
+            requestAnimationFrame(animate);
+        } else {
+            if (balloon.parentNode) balloon.parentNode.removeChild(balloon);
+        }
+    }
+    requestAnimationFrame(animate);
+
+    // Click to pop
+    balloon.addEventListener('mousedown', (e) => {
+        e.stopPropagation();
+        popBalloon(balloon, color);
+    });
+}
+
+function popBalloon(balloon, color) {
+    const rect = balloon.getBoundingClientRect();
+    const skyRect = balloonSky.getBoundingClientRect();
+    const x = rect.left - skyRect.left + rect.width / 2;
+    const y = rect.top - skyRect.top + rect.height / 2;
+
+    // Create Pop Text (Wish)
+    const wishText = balloonWishes[Math.floor(Math.random() * balloonWishes.length)];
+    const textEl = document.createElement('div');
+    textEl.className = 'balloon-pop-text';
+    textEl.textContent = wishText;
+    textEl.style.left = `${x}px`;
+    textEl.style.top = `${y}px`;
+    textEl.style.transform = 'translate(-50%, -50%)';
+    balloonSky.appendChild(textEl);
+
+    // Update Counter
+    totalWishesRevealed++;
+    if (wishesCountDisplay) wishesCountDisplay.textContent = totalWishesRevealed;
+
+    // Create Confetti
+    for (let i = 0; i < 20; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'balloon-confetti';
+        confetti.style.backgroundColor = color;
+        confetti.style.left = `${x}px`;
+        confetti.style.top = `${y}px`;
+
+        const tx = (Math.random() - 0.5) * 200;
+        const ty = (Math.random() - 0.5) * 200;
+        confetti.style.setProperty('--tx', `${tx}px`);
+        confetti.style.setProperty('--ty', `${ty}px`);
+
+        balloonSky.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 800);
+    }
+
+    // Remove balloon
+    balloon.remove();
+    setTimeout(() => textEl.remove(), 2000);
+}
+
+// === APOLOGY LETTER LOGIC ===
+const apologyMessages = [
+    "I am sorry for every time I made you sad. 🥀",
+    "I'm sorry for the times I wasn't patient enough. 😔",
+    "I'm sorry for any word that ever hurt your beautiful heart. 💔",
+    "I'm sorry if I ever made you feel anything less than perfect. 👑",
+    "I'm sorry for the mistakes I've made, big and small. 🥺",
+    "But most of all, I'm sorry that I'm not always the man you deserve. 💛",
+    "I promise to try harder. To love you better. To be your peace. ✨",
+    "You are the best thing in my life, and I never want to lose you. ♾️"
+];
+
+let currentApologyIndex = 0;
+const apologyLetter = document.getElementById('apology-letter');
+const apologyMessage = document.getElementById('apology-message');
+const apologyFinalAction = document.getElementById('apology-final-action');
+const forgiveYes = document.getElementById('forgive-yes');
+const forgiveNo = document.getElementById('forgive-no');
+const forgivenSuccess = document.getElementById('forgiven-success');
+
+function startApologyRotation() {
+    if (!apologyMessage) return;
+
+    const interval = setInterval(() => {
+        apologyMessage.style.opacity = '0';
+
+        setTimeout(() => {
+            currentApologyIndex++;
+            if (currentApologyIndex < apologyMessages.length) {
+                apologyMessage.textContent = apologyMessages[currentApologyIndex];
+                apologyMessage.style.opacity = '1';
+                spawnApologyPetal();
+            } else {
+                clearInterval(interval);
+                apologyMessage.innerHTML = "I Love You More Than Words Can Say. ❤️";
+                apologyMessage.style.opacity = '1';
+                if (apologyFinalAction) apologyFinalAction.classList.remove('hidden');
+            }
+        }, 800);
+    }, 4000);
+}
+
+function spawnApologyPetal() {
+    const container = document.getElementById('apology-petals');
+    if (!container) return;
+
+    const petal = document.createElement('div');
+    petal.className = 'absolute text-2xl pointer-events-none opacity-40';
+    petal.textContent = '🥀';
+    petal.style.left = Math.random() * 100 + '%';
+    petal.style.top = '-20px';
+
+    const duration = 3000 + Math.random() * 3000;
+    petal.style.transition = `all ${duration}ms linear`;
+    container.appendChild(petal);
+
+    setTimeout(() => {
+        petal.style.top = '110%';
+        petal.style.transform = `translateX(${(Math.random() - 0.5) * 100}px) rotate(${Math.random() * 360}deg)`;
+    }, 50);
+
+    setTimeout(() => petal.remove(), duration + 100);
+}
+
+if (forgiveYes) {
+    forgiveYes.addEventListener('click', () => {
+        if (apologyFinalAction) apologyFinalAction.classList.add('hidden');
+        if (forgivenSuccess) forgivenSuccess.classList.remove('hidden');
+        createConfetti();
+        // Trigger extra confetti
+        for (let i = 0; i < 5; i++) setTimeout(createConfetti, i * 300);
+    });
+}
+
+if (forgiveNo) {
+    forgiveNo.addEventListener('click', () => {
+        forgiveNo.style.transform = `translate(${(Math.random() - 0.5) * 200}px, ${(Math.random() - 0.5) * 100}px)`;
+        setTimeout(() => {
+            forgiveNo.textContent = "Please? 🥺";
+        }, 300);
+    });
+}
+
+// Start rotation when section is revealed
+const apologySection = document.getElementById('section-apology');
+if (apologySection) {
+    const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            startApologyRotation();
+            observer.disconnect();
+        }
+    }, { threshold: 0.5 });
+    observer.observe(apologySection);
 }

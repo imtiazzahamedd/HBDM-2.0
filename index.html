@@ -7,7 +7,7 @@
     <title>Happy Birthday My Love ❤️</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&family=Pacifico&family=Great+Vibes&family=Parisienne&family=Monoton&family=Homemade+Apple&family=Press+Start+2P&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -15,91 +15,202 @@
 <body class="bg-slate-950 text-amber-50 overflow-x-hidden min-h-screen snap-y snap-mandatory scroll-smooth">
     <div class="stars-container"></div>
 
-    <div id="intro-sequence"
-        class="fixed inset-0 z-[100] bg-slate-950 flex items-center justify-center transition-all duration-1000">
-        <!-- Royal gold overlay -->
-        <div
-            class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-900/10 via-slate-950 to-slate-950">
-        </div>
+    <div id="intro-sequence" class="fixed inset-0 z-[100] overflow-hidden">
+        <!-- Dynamic animated background -->
+        <div id="intro-bg" class="absolute inset-0 intro-bg-layer"></div>
+
+        <!-- Floating particle hearts container -->
+        <div id="intro-particles" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+
+        <!-- Ambient glow rings -->
+        <div class="intro-glow-ring" id="glow-ring-1"></div>
+        <div class="intro-glow-ring intro-glow-ring-2" id="glow-ring-2"></div>
 
         <!-- Skip Button -->
-        <button id="skip-intro"
-            class="fixed top-8 right-8 z-[110] px-6 py-2 bg-amber-400 text-slate-950 font-bold text-sm rounded-full hover:bg-amber-300 transition-all duration-300 flex items-center gap-2 shadow-[0_0_20px_rgba(251,191,36,0.5)] group">
-            Skip korba..??🥺
+        <button id="skip-intro" class="intro-skip-btn">
+            Skip korba..?? 🥺
         </button>
 
-        <!-- Tap to Start Trigger -->
-        <div id="intro-trigger"
-            class="absolute inset-0 z-[105] flex flex-col items-center justify-center cursor-pointer group">
-            <div class="relative">
-                <div
-                    class="absolute inset-0 bg-amber-400 rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity animate-pulse-slow">
+        <!-- === SCREEN 0: Tap to Unlock (Pre-loader) === -->
+        <div id="intro-trigger" class="intro-trigger-screen">
+            <div class="intro-lock-container">
+                <!-- Orbiting stars -->
+                <div class="intro-orbit-ring">
+                    <span class="orbit-star" style="--i:0">✦</span>
+                    <span class="orbit-star" style="--i:1">✦</span>
+                    <span class="orbit-star" style="--i:2">✦</span>
+                    <span class="orbit-star" style="--i:3">✦</span>
+                    <span class="orbit-star" style="--i:4">✦</span>
+                    <span class="orbit-star" style="--i:5">✦</span>
                 </div>
-                <div
-                    class="text-9xl mb-8 transform group-hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_30px_rgba(251,191,36,0.3)]">
-                    💝</div>
+                <!-- The beating heart -->
+                <div class="intro-hero-heart">💝</div>
+                <!-- Pulse rings -->
+                <div class="intro-pulse-ring" style="--delay:0s"></div>
+                <div class="intro-pulse-ring" style="--delay:0.6s"></div>
+                <div class="intro-pulse-ring" style="--delay:1.2s"></div>
             </div>
-            <p class="text-amber-400 font-dancing text-3xl md:text-5xl animate-bounce-slow">Tap to see a world of love ✨
+            <p class="intro-tap-text text-center">
+                ✨ Tap to enter our world ✨ <br> 
+                <span class="block text-center text-amber-400 text-lg md:text-xl mt-3 tracking-wider" style="font-family: 'Homemade Apple', cursive; transform: rotate(-2deg);">chutttusa hehe</span>
             </p>
+            <p class="intro-tap-subtext block text-center">A story of us, crafted with endless love</p>
         </div>
 
-        <div class="text-center px-6 max-w-2xl relative z-10 w-full h-full flex items-center justify-center">
-            <!-- Animation Steps 1-12 -->
-            <div id="intro-text-1"
-                class="intro-text absolute inset-0 flex flex-col items-center justify-center text-4xl md:text-6xl font-bold text-amber-400 opacity-0 pointer-events-none">
-                <span class="mb-4">Hiii Babeee</span>
-                <span class="text-7xl animate-bounce-gentle">✨</span>
+        <!-- === CINEMATIC TEXT PANELS === -->
+        <div id="intro-panels" class="absolute inset-0 pointer-events-none">
+
+            <!-- Panel 1: Hellooo Bacchhaaaa -->
+            <div id="intro-text-1" class="intro-panel">
+                <div class="intro-panel-inner">
+                    <div class="intro-panel-label">for you,</div>
+                    <div class="intro-panel-title intro-split-text" data-text="Hellooo Bacchhaaaa">Hellooo Bacchhaaaa</div>
+                    <div class="intro-panel-emoji">✨</div>
+                </div>
             </div>
-            <div id="intro-text-2"
-                class="intro-text absolute inset-0 flex items-center justify-center text-2xl md:text-5xl font-semibold text-amber-200 opacity-0 pointer-events-none px-4 italic leading-tight">
-                <span>tumi ki jano j <br> ajker din ta onek speical...???</span>
+
+            <!-- Panel 2: Special day question -->
+            <div id="intro-text-2" class="intro-panel">
+                <div class="intro-panel-inner">
+                    <div class="intro-panel-subtitle">— tumi ki jano j —</div>
+                    <div class="intro-panel-title intro-panel-title-lg" data-text="ajker din ta">ajker din ta</div>
+                    <div class="intro-panel-highlight">onek special...???</div>
+                </div>
             </div>
-            <div id="intro-text-3"
-                class="intro-text absolute inset-0 flex items-center justify-center text-xl md:text-4xl font-semibold text-amber-400 opacity-0 pointer-events-none px-6 leading-relaxed">
-                <span>karon ajker ei din e ami amar prithibi paichi...<br><span
-                        class="text-lg md:text-2xl mt-4 block text-amber-200">ei duniay ami age ashleo ajker din e ami
-                        amar prithibi paichi...</span><br><span class="text-sm md:text-xl text-slate-400">it's like it's
-                        the day of me getting my world..</span></span>
+
+            <!-- Panel 3: Getting the world -->
+            <div id="intro-text-3" class="intro-panel">
+                <div class="intro-panel-inner intro-panel-inner-sm">
+                    <div class="intro-panel-body">karon ajker ei din e ami amar prithibi paichi...</div>
+                    <div class="intro-panel-body-muted">ei duniay ami age ashleo ajker din e ami amar prithibi paichi...</div>
+                    <div class="intro-panel-body-faint">it's like it's the day of me getting my world..</div>
+                </div>
             </div>
-            <div id="intro-text-4"
-                class="intro-text absolute inset-0 flex items-center justify-center text-5xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 opacity-0 pointer-events-none">
-                <span>I mean....</span>
+
+            <!-- Panel 4: I mean -->
+            <div id="intro-text-4" class="intro-panel">
+                <div class="intro-panel-inner">
+                    <div class="intro-panel-mega intro-glitch" data-text="I mean....">I mean....</div>
+                </div>
             </div>
-            <div id="intro-text-5"
-                class="intro-text absolute inset-0 flex flex-col items-center justify-center text-6xl md:text-9xl font-bold text-amber-400 opacity-0 pointer-events-none font-dancing">
-                <span>It's your Birthday!</span>
-                <span class="text-8xl mt-4">👑</span>
+
+            <!-- Panel 5: IT'S YOUR BIRTHDAY -->
+            <div id="intro-text-5" class="intro-panel intro-panel-boom">
+                <div class="intro-burst-bg"></div>
+                <div class="intro-panel-inner">
+                    <div class="intro-panel-crown">👑</div>
+                    <div class="intro-panel-mega intro-panel-mega-gold font-dancing" data-text="It's your Birthday!">It's your Birthday!</div>
+                    <div class="intro-confetti-row">🎊 🎈 🎉 🎀 🎊 🎈 🎉</div>
+                </div>
             </div>
-            <div id="intro-text-6"
-                class="intro-text absolute inset-0 flex items-center justify-center text-2xl md:text-5xl font-semibold text-amber-200 opacity-0 pointer-events-none px-4 text-center">
-                <span>Birthday of that person who means everythingggg to meeee</span>
+
+            <!-- Panel 6: Means everything -->
+            <div id="intro-text-6" class="intro-panel">
+                <div class="intro-panel-inner">
+                    <div class="intro-panel-quote">" Birthday of that person who means </div>
+                    <div class="intro-panel-quote-em">everythingggg to meeee "</div>
+                </div>
             </div>
-            <div id="intro-text-7"
-                class="intro-text absolute inset-0 flex items-center justify-center text-4xl md:text-7xl font-bold text-amber-400 opacity-0 pointer-events-none font-dancing">
-                <span>Happy Birthday jaaann ✨</span>
+
+            <!-- Panel 7: Happy Birthday -->
+            <div id="intro-text-7" class="intro-panel">
+                <div class="intro-panel-inner">
+                    <div class="intro-panel-mega intro-panel-mega-gold font-dancing" data-text="Happy Birthday">Happy Birthday</div>
+                    <div class="intro-panel-mega font-dancing intro-panel-name">jaaann ✨</div>
+                </div>
             </div>
-            <div id="intro-text-8"
-                class="intro-text absolute inset-0 flex items-center justify-center text-3xl md:text-6xl font-semibold text-amber-200 opacity-0 pointer-events-none italic">
-                <span>Many many returns...</span>
+
+            <!-- Panel Cake: Custom Animated Cake -->
+            <div id="intro-text-cake" class="intro-panel">
+                <div class="intro-panel-inner">
+                    <div class="intro-panel-label intro-wish-text">Happy 23rd Birthday Babe! ✨</div>
+                    <div class="intro-cake-container">
+                        <!-- Localized Confetti -->
+                        <div class="cake-confetti-burst"></div>
+                        
+                        <div class="intro-cake">
+                            <div class="cake-layer layer-top">
+                                <div class="cake-decorations">
+                                    <div class="cake-number-23">23</div>
+                                    <span class="sprinkle" style="--i:1;--t:10%;--l:20%"></span>
+                                    <span class="sprinkle" style="--i:2;--t:30%;--l:70%"></span>
+                                    <span class="sprinkle" style="--i:3;--t:60%;--l:40%"></span>
+                                    <span class="cake-heart" style="--i:1;--t:20%;--l:50%">❤️</span>
+                                </div>
+                            </div>
+                            <div class="cake-layer layer-middle">
+                                <div class="cake-decorations">
+                                    <span class="sprinkle" style="--i:4;--t:20%;--l:10%"></span>
+                                    <span class="sprinkle" style="--i:5;--t:40%;--l:80%"></span>
+                                    <span class="sprinkle" style="--i:6;--t:70%;--l:30%"></span>
+                                    <span class="cake-heart" style="--i:2;--t:30%;--l:60%">💖</span>
+                                </div>
+                            </div>
+                            <div class="cake-layer layer-bottom">
+                                <div class="cake-decorations">
+                                    <span class="sprinkle" style="--i:7;--t:15%;--l:15%"></span>
+                                    <span class="sprinkle" style="--i:8;--t:35%;--l:85%"></span>
+                                    <span class="sprinkle" style="--i:9;--t:75%;--l:25%"></span>
+                                    <span class="cake-heart" style="--i:3;--t:25%;--l:45%">💝</span>
+                                </div>
+                            </div>
+                            <div class="cake-candles">
+                                <div class="candle" style="--i:0">
+                                    <div class="flame"></div>
+                                </div>
+                                <div class="candle" style="--i:1">
+                                    <div class="flame"></div>
+                                </div>
+                                <div class="candle" style="--i:2">
+                                    <div class="flame"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="intro-text-9"
-                class="intro-text absolute inset-0 flex flex-col items-center justify-center text-5xl md:text-8xl font-bold text-amber-400 opacity-0 pointer-events-none">
-                <span>opppss...</span>
-                <span class="text-4xl md:text-6xl mt-2">thukkkuuuu</span>
+
+            <!-- Panel 8: Many many returns -->
+            <div id="intro-text-8" class="intro-panel">
+                <div class="intro-panel-inner">
+                    <div class="intro-panel-italic">Many many returns...</div>
+                </div>
             </div>
-            <div id="intro-text-10"
-                class="intro-text absolute inset-0 flex items-center justify-center text-2xl md:text-5xl font-semibold text-amber-200 opacity-0 pointer-events-none px-6 text-center">
-                <span>Many many happy returns of the day sweetheart...</span>
+
+            <!-- Panel 9: Opppss thukkkuuuu -->
+            <div id="intro-text-9" class="intro-panel">
+                <div class="intro-panel-inner">
+                    <div class="intro-panel-mega" data-text="opppss...">opppss...</div>
+                    <div class="intro-panel-sub-bounce">thukkkuuuu 😅</div>
+                </div>
             </div>
-            <div id="intro-text-11"
-                class="intro-text absolute inset-0 flex items-center justify-center text-2xl md:text-5xl font-semibold text-amber-200 opacity-0 pointer-events-none px-6">
-                <span>The Happiest birthday to the sweetest person in my life...</span>
+
+            <!-- Panel 10: Full birthday wish -->
+            <div id="intro-text-10" class="intro-panel">
+                <div class="intro-panel-inner">
+                    <div class="intro-panel-body">Many many happy returns of the day sweetheart...</div>
+                </div>
             </div>
-            <div id="intro-text-12"
-                class="intro-text absolute inset-0 flex flex-col items-center justify-center text-7xl md:text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 font-dancing opacity-0 pointer-events-none">
-                <span>I Love You,</span>
-                <span class="text-9xl">Mitisa! ✨</span>
+
+            <!-- Panel 11: Happiest birthday -->
+            <div id="intro-text-11" class="intro-panel">
+                <div class="intro-panel-inner">
+                    <div class="intro-panel-body intro-panel-body-glow">The Happiest birthday to the sweetest person in my life...</div>
+                </div>
             </div>
+
+            <!-- Panel 12: I Love You Mitisa - FINAL -->
+            <div id="intro-text-12" class="intro-panel intro-panel-final">
+                <div class="intro-final-glow-bg"></div>
+                <div class="intro-panel-inner">
+                    <div class="intro-final-label">always &amp; forever</div>
+                    <div class="intro-final-title font-dancing">I Love You,</div>
+                    <div class="intro-final-name font-dancing">Mitisa!</div>
+                    <div class="intro-final-sparkle">✨</div>
+                </div>
+            </div>
+
+
         </div>
     </div>
 
@@ -112,43 +223,86 @@
                 <div class="nav-links-container hidden md:flex">
                     <a href="#section-hero" class="nav-item">Home</a>
                     <a href="#section-journey" class="nav-item">Journey</a>
+                    <a href="#section-rose-bloom" class="nav-item">Bloom</a>
+                    <a href="#section-balloons" class="nav-item">Balloons</a>
+                    <a href="#section-apology" class="nav-item">Apology</a>
                     <a href="#section-music" class="nav-item">Music</a>
                 </div>
                 <button id="nav-toggle" class="nav-button px-2 rounded-full">
-                    <span id="nav-text" class="px-2">ALABU</span>
+                    <span id="nav-text" class="px-2">TE-AMO</span>
                 </button>
             </nav>
 
             <!-- Dropdown Menu -->
-            <div id="nav-menu" class="hidden absolute top-full left-0 right-0 mt-4 glass rounded-3xl p-6 shadow-2xl max-h-[70vh] overflow-y-auto border border-amber-400/20">
+            <div id="nav-menu"
+                class="hidden absolute top-full left-0 right-0 mt-4 glass rounded-3xl p-6 shadow-2xl max-h-[70vh] overflow-y-auto border border-amber-400/20">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                    <a href="#section-intro" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Intro</a>
-                    <a href="#section-hero" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Birthday</a>
-                    <a href="#section-card" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Card</a>
-                    <a href="#section-gift" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Gift</a>
-                    <a href="#section-voyage" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Voyage</a>
-                    <a href="#section-wheel" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Love Wheel</a>
-                    <a href="#section-journey" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Journey</a>
-                    <a href="#section-timeline" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Timeline</a>
-                    <a href="#section-letter" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Letter</a>
-                    <a href="#section-wishes" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Wishes</a>
-                    <a href="#section-words" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Special Words</a>
-                    <a href="#section-moments" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Moments</a>
-                    <a href="#section-thankyou" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Thank You</a>
-                    <a href="#section-game" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Spin heart</a>
-                    <a href="#section-music" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Music</a>
-                    <a href="#section-promises" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Promises</a>
-                    <a href="#section-anniversary" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Anniversary</a>
-                    <a href="#section-quotes" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Quotes</a>
-                    <a href="#section-dreams" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Dreams</a>
-                    <a href="#section-hug" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Hug</a>
-                    <a href="#section-bouquet" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Bouquet</a>
-                    <a href="#section-cake" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">The Cake</a>
-                    <a href="#section-review" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Year Review</a>
-                    <a href="#section-countdown" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Next Bday</a>
-                    <a href="#section-birthday-message" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Bday Message</a>
-                    <a href="#surprise" class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Surprise</a>
+                    <a href="#section-intro"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Intro</a>
+                    <a href="#section-hero"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Birthday</a>
+                    <a href="#section-card"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Card</a>
+                    <a href="#section-gift"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Gift</a>
+                    <a href="#section-voyage"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Voyage</a>
+                    <a href="#section-wheel"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Love Wheel</a>
+                    <a href="#section-journey"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Journey</a>
+                    <a href="#section-rose-bloom"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Bloom</a>
+                    <a href="#section-balloons"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Balloons</a>
+                    <a href="#section-apology"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Apology</a>
+                    <a href="#section-timeline"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Timeline</a>
+                    <a href="#section-letter"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Letter</a>
+                    <a href="#section-wishes"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Wishes</a>
+                    <a href="#section-words"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Special Words</a>
+                    <a href="#section-moments"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Moments</a>
+                    <a href="#section-thankyou"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Thank You</a>
+                    <a href="#section-game"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Spin heart</a>
+                    <a href="#section-music"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Music</a>
+                    <a href="#section-promises"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Promises</a>
+                    <a href="#section-anniversary"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Anniversary</a>
+                    <a href="#section-quotes"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Quotes</a>
+                    <a href="#section-dreams"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Dreams</a>
+                    <a href="#section-hug"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Hug</a>
+                    <a href="#section-bouquet"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Bouquet</a>
+                    <a href="#section-cake"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">The Cake</a>
+                    <a href="#section-review"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Year Review</a>
+                    <a href="#section-countdown"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Next Bday</a>
+                    <a href="#section-birthday-message"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Bday Message</a>
+                    <a href="#section-love-numbers"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">💛 Numbers</a>
+                    <a href="#section-sealed-letter"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">💌 Letter</a>
+                    <a href="#section-constellation"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">✦ Us</a>
+                    <a href="#surprise"
+                        class="nav-link p-3 rounded-xl hover:bg-amber-400/10 text-amber-200 text-sm">Surprise</a>
                 </div>
+
             </div>
         </header>
 
@@ -158,7 +312,7 @@
             class="relative z-10 h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always">
             <div
                 class="text-center space-y-4 max-w-2xl animate-fade-in overflow-y-auto scrolling-touch max-h-[90vh] py-8">
-                <div class="text-3xl font-bold text-amber-400">Hiii Babeee ✨</div>
+                <div class="text-3xl font-bold text-amber-400">Hellooo Bacchhaaaa ✨</div>
                 <div class="text-lg text-amber-200">tumi ki jano j ajker din ta onek speical...???</div>
                 <div class="text-md text-amber-200/80 italic px-4 leading-relaxed">
                     karon ajker ei din e ami amar prithibi paichi...<br>
@@ -252,7 +406,7 @@
 
                 <!-- Scroll hint -->
                 <div class="mt-8 animate-bounce text-amber-400">
-                    <p class="font-semibold">Scroll down for more! ✨</p>
+                    <p class="font-semibold">Ekhanei sesh na tw baby...niche namo..hehe.. ✨</p>
                 </div>
             </div>
         </section>
@@ -284,7 +438,7 @@
                         On this special day, I want you to know how much you mean to me.
                     </p>
                     <p class="text-lg text-amber-50 leading-relaxed animate-fade-in-delay-2">
-                        You are my sunshine ☀️, my happiness 😊, and my everything ✨
+                        You are my sunshine ☀️, my happiness 😊, and my everything..just everythinggggg!! ✨
                     </p>
                     <p class="text-xl font-semibold text-amber-400 animate-fade-in-delay-3">
                         May all your dreams come true! ✨
@@ -295,15 +449,15 @@
                 <div class="mt-8 space-y-3">
                     <div
                         class="bg-amber-400/10 rounded-2xl p-4 transform hover:scale-105 transition-all duration-300 animate-slide-right">
-                        <p class="text-sm text-amber-200">✨ You make every day brighter</p>
+                        <p class="text-sm text-amber-200">✨ You make every day brighter and brighter babe</p>
                     </div>
                     <div
                         class="bg-amber-400/10 rounded-2xl p-4 transform hover:scale-105 transition-all duration-300 animate-slide-left animation-delay-200">
-                        <p class="text-sm text-amber-200">👑 Your smile is my favorite thing</p>
+                        <p class="text-sm text-amber-200">👑 Your smile is my favorite thing..it makes me relaxed..specially tomar bacchami jaaan...eta kono din harayio na kemon..?? 🥺</p>
                     </div>
                     <div
                         class="bg-amber-400/10 rounded-2xl p-4 transform hover:scale-105 transition-all duration-300 animate-slide-right animation-delay-400">
-                        <p class="text-sm text-amber-200">🌟 I'm so lucky to have you</p>
+                        <p class="text-sm text-amber-200">🌟 I'm so lucky to have you..actually LUCKIEST RICHEST hehe</p>
                     </div>
                 </div>
 
@@ -318,6 +472,7 @@
                 <h2 class="reveal reveal-up text-4xl md:text-5xl font-bold gold-gradient-text mb-6 font-dancing">
                     I Have Something Special For You 🎁
                 </h2>
+                <h2 class="font-bold gold-gradient-text mb-2">Chuttusaaaa</h2>
 
                 <!-- Gift Box Animation -->
                 <div class="gift-box-container mb-6 animate-bounce-gentle">
@@ -342,6 +497,8 @@
                                 joy I never thought possible.</p>
                             <p class="text-lg md:text-xl font-semibold text-amber-400">You are my yesterday, my today,
                                 and all of my tomorrows. ✨</p>
+                                <h3 class="text-2xl md:text-3xl font-bold text-amber-400 mb-3 font-dancing">Alabuuuu
+                                </h3>
                         </div>
                     </div>
                 </div>
@@ -350,8 +507,8 @@
                 <div class="reveal reveal-up mt-12">
                     <h3 class="text-2xl font-bold text-amber-400 mb-4 font-dancing">A Secret Just For You... 🤫</h3>
                     <div class="scratch-container" id="scratch-container">
-                        <div class="scratch-content text-xl font-bold text-amber-500 p-4">
-                            You are the best wife in the whole world! 💍❤️
+                        <div class="scratch-content text-sm font-bold text-amber-500 p-4">
+                            You are the best wife in the whole world! 💍❤️ <br> hehe..  <br> uuummmmaaaaaahhhhhh
                         </div>
                         <canvas id="scratch-canvas" class="scratch-canvas" width="300" height="150"></canvas>
                     </div>
@@ -361,8 +518,10 @@
         </section>
 
         <!-- [NEW] Section 4.5: Love Voyage (Vertical Redesign) -->
-        <section id="section-voyage" class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always overflow-hidden">
-            <h2 class="reveal reveal-up text-4xl md:text-5xl font-bold gold-gradient-text mb-12 font-dancing text-center">
+        <section id="section-voyage"
+            class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always overflow-hidden">
+            <h2
+                class="reveal reveal-up text-4xl md:text-5xl font-bold gold-gradient-text mb-12 font-dancing text-center">
                 Our Love Voyage ⛵
             </h2>
             <div class="voyage-vertical reveal reveal-zoom">
@@ -371,7 +530,7 @@
                     <div class="voyage-marker">💌</div>
                     <div class="voyage-card glass p-4 rounded-3xl text-center">
                         <h3 class="font-bold text-amber-400">First Text</h3>
-                        <p class="text-xs text-amber-200">The moment our souls connected for the very first time. ✨</p>
+                        <p class="text-xs text-amber-200">The moment our souls connected for the very first time. ✨ <br> Hehe..apnar pic gulo onek shundor..mane nature er gula arki..!! </p>
                     </div>
                 </div>
                 <!-- Stop 2 -->
@@ -379,7 +538,7 @@
                     <div class="voyage-marker">☕</div>
                     <div class="voyage-card glass p-4 rounded-3xl text-center">
                         <h3 class="font-bold text-amber-400">First Date</h3>
-                        <p class="text-xs text-amber-200">I'll never forget the sparkle in your eyes that day. 💖</p>
+                        <p class="text-xs text-amber-200">I'll never forget the sparkle in your eyes that day. 💖 <br> Though tar ager ratre ghumao niii but still..!! </p>
                     </div>
                 </div>
                 <!-- Stop 3 -->
@@ -402,12 +561,14 @@
         </section>
 
         <!-- [NEW] Section 4.6: Reasons Love Wheel -->
-        <section id="section-wheel" class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always overflow-hidden">
-            <h2 class="reveal reveal-up text-4xl md:text-5xl font-bold gold-gradient-text mb-6 font-dancing text-center">
+        <section id="section-wheel"
+            class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always overflow-hidden">
+            <h2
+                class="reveal reveal-up text-4xl md:text-5xl font-bold gold-gradient-text mb-6 font-dancing text-center">
                 Why I Love You? 🎡
             </h2>
             <p class="text-amber-200 mb-8 text-center reveal reveal-up">Spin the wheel to find a reason...</p>
-            
+
             <div class="wheel-container reveal reveal-zoom">
                 <div class="wheel-pointer">👇</div>
                 <div id="love-wheel" class="wheel-main cursor-pointer" onclick="spinLoveWheel()">
@@ -436,26 +597,41 @@
                     Our Beautiful Journey ✨
                 </h2>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
                     <!-- Days Together -->
-                    <div class="glass rounded-3xl p-6 shadow-xl transform hover:scale-105 transition-all duration-300">
-                        <div class="text-5xl md:text-6xl font-bold text-amber-400 mb-2" id="days-count">0</div>
-                        <div class="text-lg text-amber-100 font-semibold">Days Together</div>
-                        <div class="text-3xl mt-2">✨</div>
+                    <div class="glass rounded-3xl p-6 shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-between md:flex-col md:justify-center">
+                        <div class="text-left md:text-center">
+                            <div class="text-3xl md:text-5xl font-bold text-amber-400" id="days-count">0</div>
+                            <div class="text-sm md:text-lg text-amber-100 font-semibold uppercase tracking-widest">Days</div>
+                        </div>
+                        <div class="text-4xl md:mt-4">✨</div>
                     </div>
 
                     <!-- Hours Together -->
-                    <div class="glass rounded-3xl p-6 shadow-xl transform hover:scale-105 transition-all duration-300">
-                        <div class="text-5xl md:text-6xl font-bold text-amber-400 mb-2" id="hours-count">0</div>
-                        <div class="text-lg text-amber-100 font-semibold">Hours of Love</div>
-                        <div class="text-3xl mt-2">⏰</div>
+                    <div class="glass rounded-3xl p-6 shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-between md:flex-col md:justify-center">
+                        <div class="text-left md:text-center">
+                            <div class="text-3xl md:text-5xl font-bold text-amber-400" id="hours-count">0</div>
+                            <div class="text-sm md:text-lg text-amber-100 font-semibold uppercase tracking-widest">Hours</div>
+                        </div>
+                        <div class="text-4xl md:mt-4">⏰</div>
                     </div>
 
                     <!-- Moments Together -->
-                    <div class="glass rounded-3xl p-6 shadow-xl transform hover:scale-105 transition-all duration-300">
-                        <div class="text-5xl md:text-6xl font-bold text-amber-400 mb-2" id="minutes-count">0</div>
-                        <div class="text-lg text-amber-100 font-semibold">Minutes of Joy</div>
-                        <div class="text-3xl mt-2">🌟</div>
+                    <div class="glass rounded-3xl p-6 shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-between md:flex-col md:justify-center">
+                        <div class="text-left md:text-center">
+                            <div class="text-3xl md:text-5xl font-bold text-amber-400" id="minutes-count">0</div>
+                            <div class="text-sm md:text-lg text-amber-100 font-semibold uppercase tracking-widest">Minutes</div>
+                        </div>
+                        <div class="text-4xl md:mt-4">🌟</div>
+                    </div>
+
+                    <!-- Seconds Together -->
+                    <div class="glass rounded-3xl p-6 shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-between md:flex-col md:justify-center">
+                        <div class="text-left md:text-center">
+                            <div class="text-3xl md:text-5xl font-bold text-amber-400" id="seconds-count">0</div>
+                            <div class="text-sm md:text-lg text-amber-100 font-semibold uppercase tracking-widest">Seconds</div>
+                        </div>
+                        <div class="text-4xl md:mt-4">🔥</div>
                     </div>
                 </div>
 
@@ -466,6 +642,58 @@
                 </div>
 
                 <p class="text-xl text-amber-200 italic">And counting... forever! ✨♾️</p>
+            </div>
+        </section>
+
+        <!-- [NEW] Section 5.5: Rose Bloom Interaction -->
+        <section id="section-rose-bloom"
+            class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always overflow-hidden bg-slate-950/50">
+            <h2 class="reveal reveal-up text-4xl md:text-5xl font-bold gold-gradient-text mb-6 font-dancing text-center">
+                Bloom Our Love 🌹
+            </h2>
+            <p class="text-amber-200 mb-12 text-center reveal reveal-up">Tap the heart to make our love bloom...</p>
+
+            <div class="w-full max-w-sm flex flex-col items-center">
+                <!-- 1. The Trigger (Top space) -->
+                <div id="rose-trigger" class="relative z-30 cursor-pointer group mb-16 scale-90 md:scale-100">
+                    <div class="text-7xl animate-pulse-gentle transition-transform group-hover:scale-110">💖</div>
+                    <div class="absolute inset-0 bg-pink-500/30 blur-2xl rounded-full animate-pulse"></div>
+                    <p class="absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] text-amber-400 font-bold tracking-[0.2em] uppercase">Bloom Our Love</p>
+                </div>
+
+                <!-- 2. The Pattern Area (Below trigger) -->
+                <div class="relative w-full h-[450px] md:h-[550px]">
+                    <div id="rose-pattern-container" class="absolute inset-0 pointer-events-none scale-75 md:scale-100">
+                        <!-- Roses will be injected here -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="rose-final-message" class="hidden mt-12 text-center animate-pop-in">
+                <h3 class="text-3xl md:text-4xl font-bold gold-gradient-text font-dancing">Our love is forever blooming ✨</h3>
+            </div>
+        </section>
+
+        <!-- [NEW] Section 5.7: Balloon Pop & Wish -->
+        <section id="section-balloons"
+            class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always overflow-hidden bg-gradient-to-b from-slate-950 to-indigo-950/30">
+            <div class="stars-container absolute inset-0 opacity-30"></div>
+            
+            <h2 class="reveal reveal-up text-4xl md:text-5xl font-bold gold-gradient-text mb-4 font-dancing text-center">
+                Balloon Wish Sky 🎈
+            </h2>
+            <p class="text-amber-200 mb-8 text-center reveal reveal-up max-w-sm">Tap the sky to release a balloon, and pop them to reveal a wish! ✨</p>
+
+            <!-- Balloon Sky Area -->
+            <div id="balloon-sky" class="relative w-full md:max-w-lg h-[50vh] md:h-[60vh] flex items-center justify-center border-2 border-dashed border-amber-400/10 rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-slate-900/40 backdrop-blur-sm cursor-crosshair">
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+                    <div class="text-9xl grayscale blur-sm">🎈</div>
+                </div>
+                <!-- Balloons will be injected here -->
+            </div>
+
+            <div id="balloon-stats" class="mt-8 text-amber-400/60 font-mono text-xs tracking-tighter uppercase">
+                Wishes Revealed: <span id="wishes-count" class="text-amber-400 font-bold">0</span>
             </div>
         </section>
 
@@ -885,8 +1113,9 @@
                         </div>
                     </div>
 
-                    <!-- Local Audio Player (Hidden) -->
-                    <audio id="local-audio" src="music/samjhawan.mpeg"></audio>
+                    <!-- Audio Players -->
+                    <audio id="intro-audio" src="music/Rockstar_ Tum Ho Lyrical Video Song _ Ranbir Kapoor _ Nargis Fakhri _ T-Series(MP3_128K).mp3" preload="auto"></audio>
+                    <audio id="local-audio" src="music/samjhawan.mpeg" preload="auto"></audio>
                 </div>
             </div>
         </section>
@@ -1321,8 +1550,10 @@
             <div class="confetti confetti-10 text-amber-300">✨</div>
         </div>
         <!-- [NEW] Section 19.4: Virtual Cake -->
-        <section id="section-cake" class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always">
-            <h2 class="reveal reveal-up text-4xl md:text-5xl font-bold gold-gradient-text mb-12 font-dancing text-center">
+        <section id="section-cake"
+            class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always">
+            <h2
+                class="reveal reveal-up text-4xl md:text-5xl font-bold gold-gradient-text mb-12 font-dancing text-center">
                 Make a Wish! 🎂
             </h2>
             <div class="cake-section reveal reveal-zoom mb-12">
@@ -1334,31 +1565,192 @@
                     <div class="cake-layer cake-bottom"></div>
                 </div>
             </div>
-            
+
             <div id="cake-reveal" class="hidden text-center animate-pop-in">
                 <div class="glass p-8 rounded-3xl max-w-md mx-auto">
                     <h3 class="text-2xl font-bold text-amber-400 mb-4 font-dancing">Yaaaay! 🎉</h3>
-                    <p class="text-amber-100 text-lg">May all your wishes come true, my love. Let's celebrate your day! 🥂✨</p>
+                    <p class="text-amber-100 text-lg">May all your wishes come true, my love. Let's celebrate your day!
+                        🥂✨</p>
                 </div>
             </div>
             <p class="text-amber-200 italic mt-8 reveal reveal-up">Tap the cake to cut it! 🔪</p>
         </section>
 
-        <!-- [NEW] Section 19.5: Virtual Bouquet -->
-        <section id="section-bouquet" class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always">
-            <h2 class="reveal reveal-up text-4xl md:text-5xl font-bold gold-gradient-text mb-8 font-dancing text-center">
+        <!-- [NEW] Section A: Love in Numbers -->
+        <section id="section-love-numbers"
+            class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always overflow-hidden">
+            <!-- Background glow -->
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(217,119,6,0.08)_0%,transparent_65%)]"></div>
+
+            <h2 class="reveal reveal-up text-4xl md:text-5xl font-bold gold-gradient-text mb-4 font-dancing text-center relative z-10">
+                Love in Numbers 💛
+            </h2>
+            <p class="reveal reveal-up text-amber-200/70 text-center mb-12 italic relative z-10">Every number tells our story...</p>
+
+            <div class="relative z-10 grid grid-cols-2 md:grid-cols-3 gap-5 max-w-3xl w-full">
+                <!-- Stat 1 -->
+                <div class="reveal reveal-up glass rounded-3xl p-6 text-center transform hover:scale-105 transition-all duration-300 hover:shadow-[0_0_30px_rgba(251,191,36,0.2)]">
+                    <div class="text-5xl mb-2">💌</div>
+                    <div class="text-4xl font-bold text-amber-400 font-dancing">∞</div>
+                    <div class="text-sm text-amber-200/70 mt-1">Messages of love</div>
+                </div>
+                <!-- Stat 2 -->
+                <div class="reveal reveal-up glass rounded-3xl p-6 text-center transform hover:scale-105 transition-all duration-300 hover:shadow-[0_0_30px_rgba(251,191,36,0.2)] animation-delay-200">
+                    <div class="text-5xl mb-2">🤗</div>
+                    <div class="text-4xl font-bold text-amber-400 font-dancing">∞</div>
+                    <div class="text-sm text-amber-200/70 mt-1">Virtual hugs sent</div>
+                </div>
+                <!-- Stat 3 -->
+                <div class="reveal reveal-up glass rounded-3xl p-6 text-center transform hover:scale-105 transition-all duration-300 hover:shadow-[0_0_30px_rgba(251,191,36,0.2)] animation-delay-400">
+                    <div class="text-5xl mb-2">😍</div>
+                    <div class="text-4xl font-bold text-amber-400 font-dancing">1</div>
+                    <div class="text-sm text-amber-200/70 mt-1">Person I chose</div>
+                </div>
+                <!-- Stat 4 -->
+                <div class="reveal reveal-up glass rounded-3xl p-6 text-center transform hover:scale-105 transition-all duration-300 hover:shadow-[0_0_30px_rgba(251,191,36,0.2)]">
+                    <div class="text-5xl mb-2">⭐</div>
+                    <div class="text-4xl font-bold text-amber-400 font-dancing">5/5</div>
+                    <div class="text-sm text-amber-200/70 mt-1">My rating of you</div>
+                </div>
+                <!-- Stat 5 -->
+                <div class="reveal reveal-up glass rounded-3xl p-6 text-center transform hover:scale-105 transition-all duration-300 hover:shadow-[0_0_30px_rgba(251,191,36,0.2)] animation-delay-200">
+                    <div class="text-5xl mb-2">🌙</div>
+                    <div class="text-4xl font-bold text-amber-400 font-dancing">365</div>
+                    <div class="text-sm text-amber-200/70 mt-1">Nights thinking of you (per year)</div>
+                </div>
+                <!-- Stat 6 -->
+                <div class="reveal reveal-up glass rounded-3xl p-6 text-center transform hover:scale-105 transition-all duration-300 hover:shadow-[0_0_30px_rgba(251,191,36,0.2)] animation-delay-400">
+                    <div class="text-5xl mb-2">💍</div>
+                    <div class="text-4xl font-bold text-amber-400 font-dancing">1</div>
+                    <div class="text-sm text-amber-200/70 mt-1">Forever promised to you</div>
+                </div>
+            </div>
+
+            <div class="reveal reveal-up mt-12 glass rounded-3xl p-6 max-w-md text-center relative z-10">
+                <p class="text-amber-100 text-lg italic">"No number can measure how much I love you — but know it's more than the stars in the sky ✨"</p>
+            </div>
+        </section>
+
+        <!-- [NEW] Section B: Message in a Bottle (Wax Seal Letter) -->
+        <section id="section-sealed-letter"
+            class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always overflow-hidden">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_60%_40%,rgba(120,53,15,0.12)_0%,transparent_65%)]"></div>
+
+            <h2 class="reveal reveal-up text-4xl md:text-5xl font-bold gold-gradient-text mb-4 font-dancing text-center relative z-10">
+                From My Heart to Yours 💌
+            </h2>
+            <p class="reveal reveal-up text-amber-200/70 text-center mb-10 italic relative z-10">A sealed message, only for you...</p>
+
+            <div class="reveal reveal-zoom relative z-10 max-w-lg w-full" id="sealed-letter-container">
+                <!-- The Sealed Envelope -->
+                <div id="sealed-envelope" class="letter-envelope glass rounded-3xl p-10 text-center cursor-pointer group"
+                    onclick="openSealedLetter()">
+                    <div class="text-7xl mb-4 group-hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_20px_rgba(251,191,36,0.5)]">📩</div>
+                    <div class="wax-seal">💝</div>
+                    <p class="text-amber-400 font-dancing text-2xl mt-4">Tap to break the seal...</p>
+                    <p class="text-amber-200/50 text-sm mt-2 italic">A letter written with my heart</p>
+                </div>
+
+                <!-- The Opened Letter -->
+                <div id="opened-letter" class="hidden glass rounded-3xl p-8 md:p-10 text-left animate-pop-in">
+                    <div class="text-center mb-6">
+                        <div class="text-4xl">💛</div>
+                        <h3 class="font-dancing text-3xl text-amber-400 mt-2">To My Dearest Mitisa,</h3>
+                    </div>
+                    <div class="space-y-4 text-amber-100/90 leading-relaxed text-[0.95rem] md:text-base max-h-[50vh] overflow-y-auto pr-2">
+                        <p>On the day I first talked to you, I had no idea that I was beginning the greatest chapter of my life. Your voice, your laughter, your warmth — they became the melody I never knew I was missing. Just like age kichu mone hoito na ar ekhon paoar por na pailei mone hoy j duniya tay kichuii naiiiiiiiiiiiii....</p>
+                        <p>You carry grace so effortlessly. Even in your quietest moments, you radiate something that makes the whole room feel warmer. That's why tumi na thakle ei room etotai nirjib lage ar ami thakte pari na jaan... I fall in love with you in new ways every single day — in the way you laugh, in the way you care, in the way you galaoing me hehe, in the way you're just... you.</p>
+                        <p>But sometimes, it's just too bad you know...I feel like I am a curse for you..I ruined your life..I made your life hard and day by day making it harder and harder..these things force me to think that do I really love you jaan..?? But if it's like this then it's impossible to get this much love form you and I have a confidence that I love you jaan..may be it's just different..I'm different as well as amar bhalobasha jaan..</p>
+                        <p>Sometimes, you feel like that ami tomake bujhi na..ba ami bujheo kichu kortechi na...emon ta nah jaan..ha amio manush that's why amio majhe majhe bujhi na miss kre jai but bujheo bujhi na emon ta kori na bacccha bissash koro...amar vangchur e ami je poriman guilty feel korchi aj porjntw kono kichu te eto guilty feel kori ni janno..ami sttiyy sorry jaan..sorry for giving you hardship, sorry for not understanding you..sorry for being the reason of your tears but I was am will be the reason for you smile for being loved jaan..I will do my best for you jaan...just have faith in me and keep supporting me...cause without you..there's nothing like me in me..my SOUL craves for you every mili-second..!!</p>
+                        <p>Jahok...actually bolte shuru korle ar sesh hobe na, but eto beshi bolle baki tuku kokhon dekhba haa..hehe.. <br> On this birthday, I want you to know that you are not just loved — you are treasured. Every piece of you, the serious and the silly, the strong and the soft. I treasure all of it.</p>
+                        <p class="text-amber-400 font-semibold text-lg">You are my home, Mitisa. And I am so incredibly lucky. ✨</p>
+                        <p class="text-right italic mt-6 text-amber-200">Forever yours,<br><span class="font-dancing text-xl">Your Tasin 💛</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- [NEW] Section C: Our Constellation -->
+        <section id="section-constellation"
+            class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always overflow-hidden">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_60%,rgba(251,191,36,0.06)_0%,transparent_65%)]"></div>
+
+            <h2 class="reveal reveal-up text-4xl md:text-5xl font-bold gold-gradient-text mb-4 font-dancing text-center relative z-10">
+                You & Me ✦ Our Constellation
+            </h2>
+            <p class="reveal reveal-up text-amber-200/60 mb-12 text-center italic relative z-10">Two stars that found each other in the universe</p>
+
+            <div class="reveal reveal-zoom relative z-10 w-full max-w-xl constellation-canvas" id="constellation-wrap">
+                <!-- Star nodes -->
+                <div class="con-star con-star-1">
+                    <div class="con-star-dot"></div>
+                    <div class="con-star-label">You</div>
+                </div>
+                <div class="con-star con-star-2">
+                    <div class="con-star-dot animate-pulse"></div>
+                    <div class="con-star-label">Me</div>
+                </div>
+                <div class="con-star con-star-3">
+                    <div class="con-star-dot con-star-small"></div>
+                </div>
+                <div class="con-star con-star-4">
+                    <div class="con-star-dot con-star-small"></div>
+                </div>
+                <div class="con-star con-star-5">
+                    <div class="con-star-dot con-star-small"></div>
+                </div>
+                <!-- SVG Lines -->
+                <svg class="con-svg" viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="100" y1="80" x2="300" y2="180" class="con-line" />
+                    <line x1="100" y1="80" x2="200" y2="230" class="con-line con-line-delay-1" />
+                    <line x1="300" y1="180" x2="340" y2="60" class="con-line con-line-delay-2" />
+                    <line x1="300" y1="180" x2="200" y2="230" class="con-line con-line-delay-1" />
+                    <line x1="60" y1="200" x2="100" y2="80" class="con-line con-line-delay-2" />
+                </svg>
+                <!-- Center heart -->
+                <div class="con-heart">💛</div>
+            </div>
+
+            <div class="reveal reveal-up mt-12 max-w-lg w-full text-center relative z-10">
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="glass rounded-2xl p-4">
+                        <div class="text-3xl mb-1">🌟</div>
+                        <div class="text-xs text-amber-200/70">Found each other</div>
+                    </div>
+                    <div class="glass rounded-2xl p-4">
+                        <div class="text-3xl mb-1">💫</div>
+                        <div class="text-xs text-amber-200/70">Became one universe</div>
+                    </div>
+                    <div class="glass rounded-2xl p-4">
+                        <div class="text-3xl mb-1">✨</div>
+                        <div class="text-xs text-amber-200/70">Shine forever</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- [NEW] Section B: Virtual Bouquet (existing, just keeping its place) -->
+        <section id="section-bouquet"
+            class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always">
+            <h2
+                class="reveal reveal-up text-4xl md:text-5xl font-bold gold-gradient-text mb-8 font-dancing text-center">
                 A Garden of My Love 🌹
             </h2>
-            <p class="text-amber-200 mb-12 text-center reveal reveal-up">Each flower represents a reason why I love you...</p>
-            
+            <p class="text-amber-200 mb-12 text-center reveal reveal-up">Each flower represents a reason why I love
+                you...</p>
+
             <div class="bouquet-container relative w-full max-w-lg mb-12 reveal reveal-zoom">
-                <div class="flower text-7xl" style="--rot: -30deg; left: 20%; animation: bloom 1s forwards 0.2s;">🌹</div>
-                <div class="flower text-7xl" style="--rot: -15deg; left: 35%; animation: bloom 1s forwards 0.4s;">🌻</div>
+                <div class="flower text-7xl" style="--rot: -30deg; left: 20%; animation: bloom 1s forwards 0.2s;">🌹
+                </div>
+                <div class="flower text-7xl" style="--rot: -15deg; left: 35%; animation: bloom 1s forwards 0.4s;">🌻
+                </div>
                 <div class="flower text-7xl" style="--rot: 0deg; left: 50%; animation: bloom 1s forwards 0.6s;">🌸</div>
-                <div class="flower text-7xl" style="--rot: 15deg; left: 65%; animation: bloom 1s forwards 0.8s;">🌺</div>
-                <div class="flower text-7xl" style="--rot: 30deg; left: 80%; animation: bloom 1s forwards 1.0s;">🌷</div>
+                <div class="flower text-7xl" style="--rot: 15deg; left: 65%; animation: bloom 1s forwards 0.8s;">🌺
+                </div>
+                <div class="flower text-7xl" style="--rot: 30deg; left: 80%; animation: bloom 1s forwards 1.0s;">🌷
+                </div>
             </div>
-            
+
             <div class="text-center reveal reveal-up mt-8">
                 <div class="glass p-6 rounded-3xl inline-block">
                     <p class="text-amber-400 font-bold">You are the most beautiful flower in my garden! 💝</p>
@@ -1366,10 +1758,52 @@
             </div>
         </section>
 
+        <!-- [NEW] Section: Apology Letter -->
+        <section id="section-apology"
+            class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20 snap-start snap-always overflow-hidden bg-slate-950">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(239,68,68,0.05)_0%,transparent_70%)]"></div>
+            
+            <h2 class="reveal reveal-up text-4xl md:text-5xl font-bold gold-gradient-text mb-4 font-dancing text-center">
+                For the times I hurt you... 🥀
+            </h2>
+            <p class="reveal reveal-up text-amber-200/60 mb-12 text-center italic max-w-sm">Wait until the end to see the full message</p>
+
+            <!-- Letter Container -->
+            <div class="w-full max-w-md relative">
+                <!-- Letter Content -->
+                <div id="apology-letter" class="glass rounded-3xl p-8 md:p-10 shadow-2xl relative z-10 min-h-[400px] flex flex-col items-center justify-center text-center">
+                    <div id="apology-message" class="text-amber-100/90 leading-relaxed font-dancing text-2xl animate-fade-in">
+                        <!-- Messages will rotate here -->
+                        I am sorry for every time I made you sad.
+                    </div>
+                </div>
+
+                <!-- Petals Falling (Visual Effect) -->
+                <div id="apology-petals" class="absolute inset-0 pointer-events-none"></div>
+            </div>
+
+            <!-- Final Action (Shown at the end) -->
+            <div id="apology-final-action" class="hidden mt-12 animate-pop-in text-center">
+                <p class="text-amber-400 font-bold text-xl mb-6">Forgive me? 🥺</p>
+                <div class="flex gap-4">
+                    <button id="forgive-yes" class="px-8 py-3 bg-amber-400 text-slate-950 font-bold rounded-full shadow-lg transform hover:scale-110 active:scale-95 transition-all">Yes ❤️</button>
+                    <button id="forgive-no" class="px-8 py-3 glass border border-amber-400/20 text-amber-400 font-bold rounded-full transition-all hover:bg-red-500/10">Try later 😅</button>
+                </div>
+            </div>
+            
+            <!-- Confetti Message (After Forgiven) -->
+            <div id="forgiven-success" class="hidden mt-12 text-center animate-bounce-gentle">
+                <div class="text-5xl mb-4">💖</div>
+                <h3 class="text-2xl font-bold text-amber-400">Thank you for being so patient with me!</h3>
+                <p class="text-amber-100/60 mt-2">I promise to love you better every day.</p>
+            </div>
+        </section>
+
     </div> <!-- End of main-content -->
 
     <!-- External JavaScript -->
     <script src="script.js"></script>
+
 </body>
 
 </html>
